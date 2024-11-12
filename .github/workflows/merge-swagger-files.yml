@@ -29,6 +29,9 @@ jobs:
       uses: peter-evans/create-pull-request@v7
       with:
         commit-message: Update selling-partner-api.json
+        title: 'Update selling-partner-api.json'
+        body: |
+            Update selling-partner-api.json with latest changes from upstream.
         branch: feature/update-unified-swagger-file
         assignees: mafge
         reviewers: mafge
