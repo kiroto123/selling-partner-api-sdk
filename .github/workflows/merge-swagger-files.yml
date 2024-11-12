@@ -32,3 +32,4 @@ jobs:
         branch: feature/update-unified-swagger-file
         assignees: mafge
         reviewers: mafge
+        path: ./selling-partner-api-sdk
