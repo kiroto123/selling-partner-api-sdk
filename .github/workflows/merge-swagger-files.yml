@@ -25,8 +25,10 @@ jobs:
         cache-dependency-path: selling-partner-api-sdk/openapi-merge/package-lock.json
     - run: npm ci
     - run: npx openapi-merge-cli
-    - uses: actions/upload-artifact@v4
-      name: Upload unified swagger file
+    - name: Create PR
+      uses: peter-evans/create-pull-request@v7
       with:
-        name: selling-partner-api-spec
-        path: ./selling-partner-api-sdk/openapi-merge/selling-partner-api.json
+        commit-message: Update selling-partner-api.json
+        branch: feature/update-unified-swagger-file
+        assignees: mafge
+        reviewers: mafge
