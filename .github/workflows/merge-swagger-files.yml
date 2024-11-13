@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./selling-partner-api-sdk/openapi-merge
+        working-directory: ./selling-partner-api-sdk/swagger-merge
 
     steps:
     - uses: actions/checkout@v4
@@ -17,14 +17,12 @@ jobs:
       with:
         repository: amzn/selling-partner-api-models
         path: selling-partner-api-models
-    - name: Use Node.js 22.x
-      uses: actions/setup-node@v4
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v4
       with:
-        node-version: 22.x
-        cache: 'npm'
-        cache-dependency-path: selling-partner-api-sdk/openapi-merge/package-lock.json
-    - run: npm ci
-    - run: npx openapi-merge-cli
+        dotnet-version: 3.1.x
+    - run: dotnet tool install -g SwaggerMerge
+    - run: swagger-merge -c config.json
     - name: Create PR
       uses: peter-evans/create-pull-request@v7
       with:
