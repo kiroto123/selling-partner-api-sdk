@@ -76,6 +76,9 @@ jobs:
     - name: Copy Auth&Auth lib
       working-directory: ./selling-partner-api-sdk/java
       run: cp -R tmp/com sdk/src/main/java
+    - name: Make gradlew executable
+      working-directory: ./selling-partner-api-sdk/java/sdk
+      run: chmod +x ./gradlew
     - name: Build SDK jar with Gradle
       working-directory: ./selling-partner-api-sdk/java/sdk
       run: ./gradlew fatJar
