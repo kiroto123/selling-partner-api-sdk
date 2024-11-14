@@ -1,0 +1,6 @@
+{
+  "groupId": "com.amazon.SellingPartnerAPI",
+  "artifactId": "selling-partner-api-java-sdk",
+  "artifactVersion": "0.1",
+  "library": "okhttp4-gson"
+}

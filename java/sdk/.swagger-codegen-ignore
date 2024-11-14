@@ -1,0 +1,6 @@
+# Skip generation of unnecessary files
+.travis.yml
+build.sbt
+git_push.sh
+gradle.properties
+pom.xml
