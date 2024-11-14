@@ -92,4 +92,4 @@ jobs:
         branch: feature/update-java-sdk
         assignees: mafge
         reviewers: mafge
-        path: ./selling-partner-api-sdk/java/sdk
+        path: ./selling-partner-api-sdk
