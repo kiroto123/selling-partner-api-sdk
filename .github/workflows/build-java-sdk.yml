@@ -24,6 +24,9 @@ jobs:
     - name: Download swagger codegen
       working-directory: ./selling-partner-api-sdk/java
       run: curl -O https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/3.0.63/swagger-codegen-cli-3.0.63.jar
+    - name: Remove old sdk files
+      working-directory: ./selling-partner-api-sdk/java/sdk
+      run: rm -r *
     - name: Execute swagger codegen
       working-directory: ./selling-partner-api-sdk/java
       run: |
