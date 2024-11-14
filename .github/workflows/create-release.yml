@@ -26,7 +26,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
       - name: Build SDK jar with Gradle
-        working-directory: ./selling-partner-api-sdk/java/sdk
+        working-directory: java/sdk
         run: ./gradlew fatJar
       - name: Create tag
         uses: actions/github-script@v5
@@ -42,9 +42,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            ./selling-partner-api-sdk/java/sdk/build/selling-partner-api-java-sdk-0.1.0.jar
+            .java/sdk/build/selling-partner-api-java-sdk-0.1.0.jar
       - name: Bump version
-        working-directory: ./selling-partner-api-sdk/java/config
+        working-directory: java/config
         run: | 
           sed -i '/"artifactVersion": "${{ github.event.inputs.currentVersionNumber }}"/s/"${{ github.event.inputs.currentVersionNumber }}"/"${{ github.event.inputs.newVersionNumber }}"/' config.json
       - name: Create PR
