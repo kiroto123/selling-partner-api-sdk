@@ -11,6 +11,7 @@ sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
 task fatJar(type: Jar) {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
     from sourceSets.main.output
     dependsOn configurations.runtimeClasspath
     from {
