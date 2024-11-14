@@ -42,7 +42,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            .java/sdk/build/libs/selling-partner-api-java-sdk-0.1.0.jar
+            java/sdk/build/libs/selling-partner-api-java-sdk-0.1.0.jar
           tag_name: ${{ github.event.inputs.currentVersionNumber }}
       - name: Bump version
         working-directory: java/config
