@@ -1,7 +1,7 @@
 {
   "groupId": "com.amazon.SellingPartnerAPI",
-  "modelPackage" : "com.amazon.SellingPartnerAPI",
-  "apiPackage" : "com.amazon.SellingPartnerAPI",
+  "modelPackage" : "com.amazon.SellingPartnerAPI.models",
+  "apiPackage" : "com.amazon.SellingPartnerAPI.api",
   "invokerPackage": "com.amazon.SellingPartnerAPI",
   "artifactId": "selling-partner-api-java-sdk",
   "artifactVersion": "0.1",
