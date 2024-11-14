@@ -4,3 +4,4 @@ build.sbt
 git_push.sh
 gradle.properties
 pom.xml
+src/main/AndroidManifest.xml
