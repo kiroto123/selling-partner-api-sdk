@@ -45,7 +45,8 @@ jobs:
             ./selling-partner-api-sdk/java/sdk/build/selling-partner-api-java-sdk-0.1.0.jar
       - name: Bump version
         working-directory: ./selling-partner-api-sdk/java/config
-        run: sed -i '/"artifactVersion": "${{ github.event.inputs.currentVersionNumber }}"/s/"${{ github.event.inputs.currentVersionNumber }}"/"${{ github.event.inputs.newVersionNumber }}"/' config.json
+        run: | 
+          sed -i '/"artifactVersion": "${{ github.event.inputs.currentVersionNumber }}"/s/"${{ github.event.inputs.currentVersionNumber }}"/"${{ github.event.inputs.newVersionNumber }}"/' config.json
       - name: Create PR
         uses: peter-evans/create-pull-request@v7
         with:
