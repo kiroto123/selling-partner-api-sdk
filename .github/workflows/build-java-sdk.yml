@@ -1,6 +1,9 @@
 name: Build Java SDK
 
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+  repository_dispatch:
+    types: [trigger-build]
 
 jobs:
   build:
