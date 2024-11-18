@@ -27,11 +27,11 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.FeesEstimateByIdRequest;
-import com.amazon.SellingPartnerAPI.models.GetMyFeesEstimateRequest;
-import com.amazon.SellingPartnerAPI.models.GetMyFeesEstimateResponse;
-import com.amazon.SellingPartnerAPI.models.GetMyFeesEstimatesErrorList;
-import com.amazon.SellingPartnerAPI.models.GetMyFeesEstimatesResponse;
+import com.amazon.SellingPartnerAPI.models.productfees.FeesEstimateByIdRequest;
+import com.amazon.SellingPartnerAPI.models.productfees.GetMyFeesEstimateRequest;
+import com.amazon.SellingPartnerAPI.models.productfees.GetMyFeesEstimateResponse;
+import com.amazon.SellingPartnerAPI.models.productfees.GetMyFeesEstimatesErrorList;
+import com.amazon.SellingPartnerAPI.models.productfees.GetMyFeesEstimatesResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

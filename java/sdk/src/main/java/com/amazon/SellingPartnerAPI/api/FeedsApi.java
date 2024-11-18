@@ -27,14 +27,14 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.CreateFeedDocumentResponse;
-import com.amazon.SellingPartnerAPI.models.CreateFeedDocumentSpecification;
-import com.amazon.SellingPartnerAPI.models.CreateFeedResponse;
-import com.amazon.SellingPartnerAPI.models.CreateFeedSpecification;
-import com.amazon.SellingPartnerAPI.models.ErrorList;
-import com.amazon.SellingPartnerAPI.models.Feed;
-import com.amazon.SellingPartnerAPI.models.FeedDocument;
-import com.amazon.SellingPartnerAPI.models.GetFeedsResponse;
+import com.amazon.SellingPartnerAPI.models.feeds.CreateFeedDocumentResponse;
+import com.amazon.SellingPartnerAPI.models.feeds.CreateFeedDocumentSpecification;
+import com.amazon.SellingPartnerAPI.models.feeds.CreateFeedResponse;
+import com.amazon.SellingPartnerAPI.models.feeds.CreateFeedSpecification;
+import com.amazon.SellingPartnerAPI.models.feeds.ErrorList;
+import com.amazon.SellingPartnerAPI.models.feeds.Feed;
+import com.amazon.SellingPartnerAPI.models.feeds.FeedDocument;
+import com.amazon.SellingPartnerAPI.models.feeds.GetFeedsResponse;
 import org.threeten.bp.OffsetDateTime;
 
 import java.lang.reflect.Type;

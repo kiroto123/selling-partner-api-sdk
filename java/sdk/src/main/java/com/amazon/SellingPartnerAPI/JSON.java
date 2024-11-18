@@ -28,7 +28,7 @@ import org.threeten.bp.LocalDate;
 import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
-import com.amazon.SellingPartnerAPI.models.*;
+import com.amazon.SellingPartnerAPI.models.vendor.transactionstatus.*;
 
 import java.io.IOException;
 import java.io.StringReader;

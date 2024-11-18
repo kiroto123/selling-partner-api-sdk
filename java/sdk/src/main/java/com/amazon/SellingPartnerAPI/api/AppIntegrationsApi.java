@@ -27,11 +27,11 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.CreateNotificationRequest;
-import com.amazon.SellingPartnerAPI.models.CreateNotificationResponse;
-import com.amazon.SellingPartnerAPI.models.DeleteNotificationsRequest;
-import com.amazon.SellingPartnerAPI.models.ErrorList;
-import com.amazon.SellingPartnerAPI.models.RecordActionFeedbackRequest;
+import com.amazon.SellingPartnerAPI.models.appintegrations.CreateNotificationRequest;
+import com.amazon.SellingPartnerAPI.models.appintegrations.CreateNotificationResponse;
+import com.amazon.SellingPartnerAPI.models.appintegrations.DeleteNotificationsRequest;
+import com.amazon.SellingPartnerAPI.models.appintegrations.ErrorList;
+import com.amazon.SellingPartnerAPI.models.appintegrations.RecordActionFeedbackRequest;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

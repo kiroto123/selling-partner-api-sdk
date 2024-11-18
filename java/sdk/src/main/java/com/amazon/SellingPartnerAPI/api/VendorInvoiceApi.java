@@ -27,8 +27,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.SubmitInvoiceRequest;
-import com.amazon.SellingPartnerAPI.models.SubmitInvoiceResponse;
+import com.amazon.SellingPartnerAPI.models.vendor.df.payments.SubmitInvoiceRequest;
+import com.amazon.SellingPartnerAPI.models.vendor.df.payments.SubmitInvoiceResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

@@ -27,8 +27,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.CreateProductReviewAndSellerFeedbackSolicitationResponse;
-import com.amazon.SellingPartnerAPI.models.GetSolicitationActionsForOrderResponse;
+import com.amazon.SellingPartnerAPI.models.solicitations.CreateProductReviewAndSellerFeedbackSolicitationResponse;
+import com.amazon.SellingPartnerAPI.models.solicitations.GetSolicitationActionsForOrderResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

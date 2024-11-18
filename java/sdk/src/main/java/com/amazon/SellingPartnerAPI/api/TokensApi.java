@@ -27,9 +27,9 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.CreateRestrictedDataTokenRequest;
-import com.amazon.SellingPartnerAPI.models.CreateRestrictedDataTokenResponse;
-import com.amazon.SellingPartnerAPI.models.ErrorList;
+import com.amazon.SellingPartnerAPI.models.tokens.CreateRestrictedDataTokenRequest;
+import com.amazon.SellingPartnerAPI.models.tokens.CreateRestrictedDataTokenResponse;
+import com.amazon.SellingPartnerAPI.models.tokens.ErrorList;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

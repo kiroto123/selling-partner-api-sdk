@@ -27,17 +27,17 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.CreateReportResponse;
-import com.amazon.SellingPartnerAPI.models.CreateReportScheduleResponse;
-import com.amazon.SellingPartnerAPI.models.CreateReportScheduleSpecification;
-import com.amazon.SellingPartnerAPI.models.CreateReportSpecification;
-import com.amazon.SellingPartnerAPI.models.ErrorList;
-import com.amazon.SellingPartnerAPI.models.GetReportsResponse;
+import com.amazon.SellingPartnerAPI.models.reports.CreateReportResponse;
+import com.amazon.SellingPartnerAPI.models.reports.CreateReportScheduleResponse;
+import com.amazon.SellingPartnerAPI.models.reports.CreateReportScheduleSpecification;
+import com.amazon.SellingPartnerAPI.models.reports.CreateReportSpecification;
+import com.amazon.SellingPartnerAPI.models.reports.ErrorList;
+import com.amazon.SellingPartnerAPI.models.reports.GetReportsResponse;
 import org.threeten.bp.OffsetDateTime;
-import com.amazon.SellingPartnerAPI.models.Report;
-import com.amazon.SellingPartnerAPI.models.ReportDocument;
-import com.amazon.SellingPartnerAPI.models.ReportSchedule;
-import com.amazon.SellingPartnerAPI.models.ReportScheduleList;
+import com.amazon.SellingPartnerAPI.models.reports.Report;
+import com.amazon.SellingPartnerAPI.models.reports.ReportDocument;
+import com.amazon.SellingPartnerAPI.models.reports.ReportSchedule;
+import com.amazon.SellingPartnerAPI.models.reports.ReportScheduleList;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

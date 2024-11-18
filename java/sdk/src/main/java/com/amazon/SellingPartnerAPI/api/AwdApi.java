@@ -27,11 +27,11 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.ErrorList;
-import com.amazon.SellingPartnerAPI.models.InboundShipment;
-import com.amazon.SellingPartnerAPI.models.InventoryListing;
+import com.amazon.SellingPartnerAPI.models.awd.ErrorList;
+import com.amazon.SellingPartnerAPI.models.awd.InboundShipment;
+import com.amazon.SellingPartnerAPI.models.awd.InventoryListing;
 import org.threeten.bp.OffsetDateTime;
-import com.amazon.SellingPartnerAPI.models.ShipmentListing;
+import com.amazon.SellingPartnerAPI.models.awd.ShipmentListing;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

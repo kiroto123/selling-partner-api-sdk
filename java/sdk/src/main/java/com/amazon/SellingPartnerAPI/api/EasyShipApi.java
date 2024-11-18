@@ -27,15 +27,15 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.CreateScheduledPackageRequest;
-import com.amazon.SellingPartnerAPI.models.CreateScheduledPackagesRequest;
-import com.amazon.SellingPartnerAPI.models.CreateScheduledPackagesResponse;
-import com.amazon.SellingPartnerAPI.models.ErrorList;
-import com.amazon.SellingPartnerAPI.models.ListHandoverSlotsRequest;
-import com.amazon.SellingPartnerAPI.models.ListHandoverSlotsResponse;
-import com.amazon.SellingPartnerAPI.models.ModelPackage;
-import com.amazon.SellingPartnerAPI.models.Packages;
-import com.amazon.SellingPartnerAPI.models.UpdateScheduledPackagesRequest;
+import com.amazon.SellingPartnerAPI.models.easyship.CreateScheduledPackageRequest;
+import com.amazon.SellingPartnerAPI.models.easyship.CreateScheduledPackagesRequest;
+import com.amazon.SellingPartnerAPI.models.easyship.CreateScheduledPackagesResponse;
+import com.amazon.SellingPartnerAPI.models.easyship.ErrorList;
+import com.amazon.SellingPartnerAPI.models.easyship.ListHandoverSlotsRequest;
+import com.amazon.SellingPartnerAPI.models.easyship.ListHandoverSlotsResponse;
+import com.amazon.SellingPartnerAPI.models.easyship.ModelPackage;
+import com.amazon.SellingPartnerAPI.models.easyship.Packages;
+import com.amazon.SellingPartnerAPI.models.easyship.UpdateScheduledPackagesRequest;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

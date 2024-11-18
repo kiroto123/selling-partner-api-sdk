@@ -27,18 +27,18 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.ErrorList;
-import com.amazon.SellingPartnerAPI.models.GetContentDocumentResponse;
-import com.amazon.SellingPartnerAPI.models.ListContentDocumentAsinRelationsResponse;
-import com.amazon.SellingPartnerAPI.models.PostContentDocumentApprovalSubmissionResponse;
-import com.amazon.SellingPartnerAPI.models.PostContentDocumentAsinRelationsRequest;
-import com.amazon.SellingPartnerAPI.models.PostContentDocumentAsinRelationsResponse;
-import com.amazon.SellingPartnerAPI.models.PostContentDocumentRequest;
-import com.amazon.SellingPartnerAPI.models.PostContentDocumentResponse;
-import com.amazon.SellingPartnerAPI.models.PostContentDocumentSuspendSubmissionResponse;
-import com.amazon.SellingPartnerAPI.models.SearchContentDocumentsResponse;
-import com.amazon.SellingPartnerAPI.models.SearchContentPublishRecordsResponse;
-import com.amazon.SellingPartnerAPI.models.ValidateContentDocumentAsinRelationsResponse;
+import com.amazon.SellingPartnerAPI.models.apluscontent.ErrorList;
+import com.amazon.SellingPartnerAPI.models.apluscontent.GetContentDocumentResponse;
+import com.amazon.SellingPartnerAPI.models.apluscontent.ListContentDocumentAsinRelationsResponse;
+import com.amazon.SellingPartnerAPI.models.apluscontent.PostContentDocumentApprovalSubmissionResponse;
+import com.amazon.SellingPartnerAPI.models.apluscontent.PostContentDocumentAsinRelationsRequest;
+import com.amazon.SellingPartnerAPI.models.apluscontent.PostContentDocumentAsinRelationsResponse;
+import com.amazon.SellingPartnerAPI.models.apluscontent.PostContentDocumentRequest;
+import com.amazon.SellingPartnerAPI.models.apluscontent.PostContentDocumentResponse;
+import com.amazon.SellingPartnerAPI.models.apluscontent.PostContentDocumentSuspendSubmissionResponse;
+import com.amazon.SellingPartnerAPI.models.apluscontent.SearchContentDocumentsResponse;
+import com.amazon.SellingPartnerAPI.models.apluscontent.SearchContentPublishRecordsResponse;
+import com.amazon.SellingPartnerAPI.models.apluscontent.ValidateContentDocumentAsinRelationsResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

@@ -27,13 +27,13 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.CreateQueryResponse;
-import com.amazon.SellingPartnerAPI.models.CreateQuerySpecification;
-import com.amazon.SellingPartnerAPI.models.ErrorList;
-import com.amazon.SellingPartnerAPI.models.GetDocumentResponse;
-import com.amazon.SellingPartnerAPI.models.GetQueriesResponse;
+import com.amazon.SellingPartnerAPI.models.datakiosk.CreateQueryResponse;
+import com.amazon.SellingPartnerAPI.models.datakiosk.CreateQuerySpecification;
+import com.amazon.SellingPartnerAPI.models.datakiosk.ErrorList;
+import com.amazon.SellingPartnerAPI.models.datakiosk.GetDocumentResponse;
+import com.amazon.SellingPartnerAPI.models.datakiosk.GetQueriesResponse;
 import org.threeten.bp.OffsetDateTime;
-import com.amazon.SellingPartnerAPI.models.Query;
+import com.amazon.SellingPartnerAPI.models.datakiosk.Query;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

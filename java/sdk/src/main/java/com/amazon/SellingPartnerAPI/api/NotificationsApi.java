@@ -27,16 +27,16 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.CreateDestinationRequest;
-import com.amazon.SellingPartnerAPI.models.CreateDestinationResponse;
-import com.amazon.SellingPartnerAPI.models.CreateSubscriptionRequest;
-import com.amazon.SellingPartnerAPI.models.CreateSubscriptionResponse;
-import com.amazon.SellingPartnerAPI.models.DeleteDestinationResponse;
-import com.amazon.SellingPartnerAPI.models.DeleteSubscriptionByIdResponse;
-import com.amazon.SellingPartnerAPI.models.GetDestinationResponse;
-import com.amazon.SellingPartnerAPI.models.GetDestinationsResponse;
-import com.amazon.SellingPartnerAPI.models.GetSubscriptionByIdResponse;
-import com.amazon.SellingPartnerAPI.models.GetSubscriptionResponse;
+import com.amazon.SellingPartnerAPI.models.notifications.CreateDestinationRequest;
+import com.amazon.SellingPartnerAPI.models.notifications.CreateDestinationResponse;
+import com.amazon.SellingPartnerAPI.models.notifications.CreateSubscriptionRequest;
+import com.amazon.SellingPartnerAPI.models.notifications.CreateSubscriptionResponse;
+import com.amazon.SellingPartnerAPI.models.notifications.DeleteDestinationResponse;
+import com.amazon.SellingPartnerAPI.models.notifications.DeleteSubscriptionByIdResponse;
+import com.amazon.SellingPartnerAPI.models.notifications.GetDestinationResponse;
+import com.amazon.SellingPartnerAPI.models.notifications.GetDestinationsResponse;
+import com.amazon.SellingPartnerAPI.models.notifications.GetSubscriptionByIdResponse;
+import com.amazon.SellingPartnerAPI.models.notifications.GetSubscriptionResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

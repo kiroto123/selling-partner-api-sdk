@@ -27,11 +27,11 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.ErrorList;
-import com.amazon.SellingPartnerAPI.models.ListOfferMetricsRequest;
-import com.amazon.SellingPartnerAPI.models.ListOfferMetricsResponse;
-import com.amazon.SellingPartnerAPI.models.ListOffersRequest;
-import com.amazon.SellingPartnerAPI.models.ListOffersResponse;
+import com.amazon.SellingPartnerAPI.models.replenishment.ErrorList;
+import com.amazon.SellingPartnerAPI.models.replenishment.ListOfferMetricsRequest;
+import com.amazon.SellingPartnerAPI.models.replenishment.ListOfferMetricsResponse;
+import com.amazon.SellingPartnerAPI.models.replenishment.ListOffersRequest;
+import com.amazon.SellingPartnerAPI.models.replenishment.ListOffersResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
