@@ -7,4 +7,4 @@ pom.xml
 src/main/AndroidManifest.xml
 docs/**
 README.md
-src/main/test/**
+src/test/**
