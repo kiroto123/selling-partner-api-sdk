@@ -27,15 +27,15 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.ErrorList;
-import com.amazon.SellingPartnerAPI.models.ExportInvoicesRequest;
-import com.amazon.SellingPartnerAPI.models.ExportInvoicesResponse;
-import com.amazon.SellingPartnerAPI.models.GetInvoiceResponse;
-import com.amazon.SellingPartnerAPI.models.GetInvoicesAttributesResponse;
-import com.amazon.SellingPartnerAPI.models.GetInvoicesDocumentResponse;
-import com.amazon.SellingPartnerAPI.models.GetInvoicesExportResponse;
-import com.amazon.SellingPartnerAPI.models.GetInvoicesExportsResponse;
-import com.amazon.SellingPartnerAPI.models.GetInvoicesResponse;
+import com.amazon.SellingPartnerAPI.models.invoices.ErrorList;
+import com.amazon.SellingPartnerAPI.models.invoices.ExportInvoicesRequest;
+import com.amazon.SellingPartnerAPI.models.invoices.ExportInvoicesResponse;
+import com.amazon.SellingPartnerAPI.models.invoices.GetInvoiceResponse;
+import com.amazon.SellingPartnerAPI.models.invoices.GetInvoicesAttributesResponse;
+import com.amazon.SellingPartnerAPI.models.invoices.GetInvoicesDocumentResponse;
+import com.amazon.SellingPartnerAPI.models.invoices.GetInvoicesExportResponse;
+import com.amazon.SellingPartnerAPI.models.invoices.GetInvoicesExportsResponse;
+import com.amazon.SellingPartnerAPI.models.invoices.GetInvoicesResponse;
 import org.threeten.bp.OffsetDateTime;
 
 import java.lang.reflect.Type;

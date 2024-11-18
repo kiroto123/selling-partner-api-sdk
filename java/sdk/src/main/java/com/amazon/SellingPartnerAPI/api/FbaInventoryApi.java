@@ -27,12 +27,12 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.AddInventoryRequest;
-import com.amazon.SellingPartnerAPI.models.AddInventoryResponse;
-import com.amazon.SellingPartnerAPI.models.CreateInventoryItemRequest;
-import com.amazon.SellingPartnerAPI.models.CreateInventoryItemResponse;
-import com.amazon.SellingPartnerAPI.models.DeleteInventoryItemResponse;
-import com.amazon.SellingPartnerAPI.models.GetInventorySummariesResponse;
+import com.amazon.SellingPartnerAPI.models.fbainventory.AddInventoryRequest;
+import com.amazon.SellingPartnerAPI.models.fbainventory.AddInventoryResponse;
+import com.amazon.SellingPartnerAPI.models.fbainventory.CreateInventoryItemRequest;
+import com.amazon.SellingPartnerAPI.models.fbainventory.CreateInventoryItemResponse;
+import com.amazon.SellingPartnerAPI.models.fbainventory.DeleteInventoryItemResponse;
+import com.amazon.SellingPartnerAPI.models.fbainventory.GetInventorySummariesResponse;
 import org.threeten.bp.OffsetDateTime;
 
 import java.lang.reflect.Type;

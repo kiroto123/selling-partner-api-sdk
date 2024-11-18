@@ -27,12 +27,12 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.ErrorList;
-import com.amazon.SellingPartnerAPI.models.Item;
-import com.amazon.SellingPartnerAPI.models.ItemSearchResults;
-import com.amazon.SellingPartnerAPI.models.ListingsItemPatchRequest;
-import com.amazon.SellingPartnerAPI.models.ListingsItemPutRequest;
-import com.amazon.SellingPartnerAPI.models.ListingsItemSubmissionResponse;
+import com.amazon.SellingPartnerAPI.models.listings.items.ErrorList;
+import com.amazon.SellingPartnerAPI.models.listings.items.Item;
+import com.amazon.SellingPartnerAPI.models.listings.items.ItemSearchResults;
+import com.amazon.SellingPartnerAPI.models.listings.items.ListingsItemPatchRequest;
+import com.amazon.SellingPartnerAPI.models.listings.items.ListingsItemPutRequest;
+import com.amazon.SellingPartnerAPI.models.listings.items.ListingsItemSubmissionResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

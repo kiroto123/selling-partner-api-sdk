@@ -27,19 +27,19 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.ConfirmShipmentErrorResponse;
-import com.amazon.SellingPartnerAPI.models.ConfirmShipmentRequest;
-import com.amazon.SellingPartnerAPI.models.GetOrderAddressResponse;
-import com.amazon.SellingPartnerAPI.models.GetOrderBuyerInfoResponse;
-import com.amazon.SellingPartnerAPI.models.GetOrderItemsBuyerInfoResponse;
-import com.amazon.SellingPartnerAPI.models.GetOrderItemsResponse;
-import com.amazon.SellingPartnerAPI.models.GetOrderRegulatedInfoResponse;
-import com.amazon.SellingPartnerAPI.models.GetOrderResponse;
-import com.amazon.SellingPartnerAPI.models.GetOrdersResponse;
-import com.amazon.SellingPartnerAPI.models.UpdateShipmentStatusErrorResponse;
-import com.amazon.SellingPartnerAPI.models.UpdateShipmentStatusRequest;
-import com.amazon.SellingPartnerAPI.models.UpdateVerificationStatusErrorResponse;
-import com.amazon.SellingPartnerAPI.models.UpdateVerificationStatusRequest;
+import com.amazon.SellingPartnerAPI.models.orders.ConfirmShipmentErrorResponse;
+import com.amazon.SellingPartnerAPI.models.orders.ConfirmShipmentRequest;
+import com.amazon.SellingPartnerAPI.models.orders.GetOrderAddressResponse;
+import com.amazon.SellingPartnerAPI.models.orders.GetOrderBuyerInfoResponse;
+import com.amazon.SellingPartnerAPI.models.orders.GetOrderItemsBuyerInfoResponse;
+import com.amazon.SellingPartnerAPI.models.orders.GetOrderItemsResponse;
+import com.amazon.SellingPartnerAPI.models.orders.GetOrderRegulatedInfoResponse;
+import com.amazon.SellingPartnerAPI.models.orders.GetOrderResponse;
+import com.amazon.SellingPartnerAPI.models.orders.GetOrdersResponse;
+import com.amazon.SellingPartnerAPI.models.orders.UpdateShipmentStatusErrorResponse;
+import com.amazon.SellingPartnerAPI.models.orders.UpdateShipmentStatusRequest;
+import com.amazon.SellingPartnerAPI.models.orders.UpdateVerificationStatusErrorResponse;
+import com.amazon.SellingPartnerAPI.models.orders.UpdateVerificationStatusRequest;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

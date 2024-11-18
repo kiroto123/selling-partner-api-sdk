@@ -27,9 +27,9 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.CreateContainerLabelRequest;
-import com.amazon.SellingPartnerAPI.models.CreateContainerLabelResponse;
-import com.amazon.SellingPartnerAPI.models.ErrorList;
+import com.amazon.SellingPartnerAPI.models.vendor.df.shipping.CreateContainerLabelRequest;
+import com.amazon.SellingPartnerAPI.models.vendor.df.shipping.CreateContainerLabelResponse;
+import com.amazon.SellingPartnerAPI.models.vendor.df.shipping.ErrorList;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

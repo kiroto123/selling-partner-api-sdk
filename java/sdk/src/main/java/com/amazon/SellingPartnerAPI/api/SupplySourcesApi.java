@@ -28,13 +28,13 @@ import java.io.IOException;
 
 
 import java.math.BigDecimal;
-import com.amazon.SellingPartnerAPI.models.CreateSupplySourceRequest;
-import com.amazon.SellingPartnerAPI.models.CreateSupplySourceResponse;
-import com.amazon.SellingPartnerAPI.models.ErrorList;
-import com.amazon.SellingPartnerAPI.models.GetSupplySourcesResponse;
-import com.amazon.SellingPartnerAPI.models.SupplySource;
-import com.amazon.SellingPartnerAPI.models.UpdateSupplySourceRequest;
-import com.amazon.SellingPartnerAPI.models.UpdateSupplySourceStatusRequest;
+import com.amazon.SellingPartnerAPI.models.supplysources.CreateSupplySourceRequest;
+import com.amazon.SellingPartnerAPI.models.supplysources.CreateSupplySourceResponse;
+import com.amazon.SellingPartnerAPI.models.supplysources.ErrorList;
+import com.amazon.SellingPartnerAPI.models.supplysources.GetSupplySourcesResponse;
+import com.amazon.SellingPartnerAPI.models.supplysources.SupplySource;
+import com.amazon.SellingPartnerAPI.models.supplysources.UpdateSupplySourceRequest;
+import com.amazon.SellingPartnerAPI.models.supplysources.UpdateSupplySourceStatusRequest;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

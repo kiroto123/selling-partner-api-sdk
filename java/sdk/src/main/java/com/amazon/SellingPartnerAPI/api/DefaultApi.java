@@ -27,8 +27,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.ErrorList;
-import com.amazon.SellingPartnerAPI.models.ListTransactionsResponse;
+import com.amazon.SellingPartnerAPI.models.finances.ErrorList;
+import com.amazon.SellingPartnerAPI.models.finances.ListTransactionsResponse;
 import org.threeten.bp.OffsetDateTime;
 
 import java.lang.reflect.Type;

@@ -27,10 +27,10 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.GetInvoiceStatusResponse;
-import com.amazon.SellingPartnerAPI.models.GetShipmentDetailsResponse;
-import com.amazon.SellingPartnerAPI.models.SubmitInvoiceRequest;
-import com.amazon.SellingPartnerAPI.models.SubmitInvoiceResponse;
+import com.amazon.SellingPartnerAPI.models.invoicing.GetInvoiceStatusResponse;
+import com.amazon.SellingPartnerAPI.models.invoicing.GetShipmentDetailsResponse;
+import com.amazon.SellingPartnerAPI.models.invoicing.SubmitInvoiceRequest;
+import com.amazon.SellingPartnerAPI.models.invoicing.SubmitInvoiceResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

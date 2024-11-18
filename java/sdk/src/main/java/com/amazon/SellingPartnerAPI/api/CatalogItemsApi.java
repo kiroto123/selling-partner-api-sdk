@@ -27,9 +27,9 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.ErrorList;
-import com.amazon.SellingPartnerAPI.models.Item;
-import com.amazon.SellingPartnerAPI.models.ItemSearchResults;
+import com.amazon.SellingPartnerAPI.models.catalogitems.ErrorList;
+import com.amazon.SellingPartnerAPI.models.catalogitems.Item;
+import com.amazon.SellingPartnerAPI.models.catalogitems.ItemSearchResults;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

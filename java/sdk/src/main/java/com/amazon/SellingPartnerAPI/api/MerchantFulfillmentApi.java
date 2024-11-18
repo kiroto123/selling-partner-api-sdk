@@ -27,14 +27,14 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.amazon.SellingPartnerAPI.models.CancelShipmentResponse;
-import com.amazon.SellingPartnerAPI.models.CreateShipmentRequest;
-import com.amazon.SellingPartnerAPI.models.CreateShipmentResponse;
-import com.amazon.SellingPartnerAPI.models.GetAdditionalSellerInputsRequest;
-import com.amazon.SellingPartnerAPI.models.GetAdditionalSellerInputsResponse;
-import com.amazon.SellingPartnerAPI.models.GetEligibleShipmentServicesRequest;
-import com.amazon.SellingPartnerAPI.models.GetEligibleShipmentServicesResponse;
-import com.amazon.SellingPartnerAPI.models.GetShipmentResponse;
+import com.amazon.SellingPartnerAPI.models.merchantfulfillment.CancelShipmentResponse;
+import com.amazon.SellingPartnerAPI.models.merchantfulfillment.CreateShipmentRequest;
+import com.amazon.SellingPartnerAPI.models.merchantfulfillment.CreateShipmentResponse;
+import com.amazon.SellingPartnerAPI.models.merchantfulfillment.GetAdditionalSellerInputsRequest;
+import com.amazon.SellingPartnerAPI.models.merchantfulfillment.GetAdditionalSellerInputsResponse;
+import com.amazon.SellingPartnerAPI.models.merchantfulfillment.GetEligibleShipmentServicesRequest;
+import com.amazon.SellingPartnerAPI.models.merchantfulfillment.GetEligibleShipmentServicesResponse;
+import com.amazon.SellingPartnerAPI.models.merchantfulfillment.GetShipmentResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
