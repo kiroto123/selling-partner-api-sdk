@@ -1,3 +1,7 @@
+plugins {
+    id "com.github.node-gradle.node" version "7.1.0"
+}
+
 group = 'com.amazon.SellingPartnerAPI'
 version = '0.2.0'
 
@@ -6,6 +10,20 @@ repositories {
 }
 
 apply plugin: 'java'
+
+sourceSets {
+    test {
+        resources {
+            srcDir '../../test'
+        }
+    }
+}
+
+node {
+    download = true
+    version = "18.20.2"
+    nodeProjectDir = file("${buildDir}/resources/test")
+}
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -18,6 +36,23 @@ task fatJar(type: Jar) {
         configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
     }
 }
+
+task startMockBackend(type: NpmTask) {
+    args=["start"]
+}
+
+task stopMockBackend(type: NpmTask) {
+    args=["stop"]
+}
+
+test {
+    dependsOn npmInstall
+    dependsOn startMockBackend
+    useJUnitPlatform()
+    finalizedBy stopMockBackend
+}
+
+npmInstall.dependsOn("processTestResources")
 
 dependencies {
     implementation 'io.swagger:swagger-annotations:1.6.9'
@@ -32,5 +67,6 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.17.0'
     compileOnly 'org.projectlombok:lombok:1.18.34'
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.11.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.11.3'
 }
