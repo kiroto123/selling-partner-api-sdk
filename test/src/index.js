@@ -1,12 +1,8 @@
-import getOrderItemsResponse from '../../res/getOrderItemsResponse.json' with { type: 'json' }
 import express from 'express'
+import ordersApi from './mocks/orders-api.js'
 
 const app = express()
 const port = 3000
-
-app.get('/orders/v0/orders/:orderId/orderItems', (req, res) => {
-    res.json(getOrderItemsResponse)
-})
 
 app.post('/auth/o2/token', (req, res) => {
     res.json({
@@ -16,5 +12,7 @@ app.post('/auth/o2/token', (req, res) => {
         expires_in: 3600
     })
 })
+
+app.use('/orders/v0', ordersApi)
 
 app.listen(port, () => {})
