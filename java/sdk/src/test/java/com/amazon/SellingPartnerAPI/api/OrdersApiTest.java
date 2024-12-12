@@ -1,9 +1,13 @@
 package com.amazon.SellingPartnerAPI.api;
 
+import com.amazon.SellingPartnerAPI.JSON;
 import com.amazon.SellingPartnerAPI.api.commons.ApiTest;
 import com.amazon.SellingPartnerAPI.models.orders.GetOrderItemsResponse;
+import com.amazon.SellingPartnerAPI.models.orders.UpdateVerificationStatusRequest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.io.Reader;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -26,5 +30,13 @@ public class OrdersApiTest extends ApiTest {
 
         assertNotNull(response.getPayload());
         assertNull(response.getErrors());
+    }
+
+    @Test
+    public void updateVerificationStatus() throws Exception {
+        Reader reader = getRequestFile("updateVerificationStatusRequest.json");
+        UpdateVerificationStatusRequest body = new JSON().getGson().fromJson(reader, UpdateVerificationStatusRequest.class);
+
+        ordersApi.updateVerificationStatus(body, "902-3159896-1390916");
     }
 }

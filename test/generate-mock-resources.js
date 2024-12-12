@@ -55,21 +55,43 @@ for (const path of models) {
     const content = JSON.parse(serializedContent, 'utf8')
     const operations = ["get", "put", "post", "delete", "patch"]
 
+    // Responses
     Object.values(content.paths)
-        .flatMap((path) => Object.entries(path)
-            .filter((operation) => operations.includes(operation[0]))
-            .map((operation) => operation[1]))
-        .forEach((operation) => {
-            const operationId = operation.operationId.replace(/^./, operation.operationId[0].toLowerCase())
-            try {
-                const successStatus = ["200", "201", "202"]
-                const successObjects = Object.keys(operation['responses']).filter((key) => successStatus.includes(key))
-                if (Array.isArray(successObjects) && successObjects.length > 0) {
-                    const response = JSON.stringify(operation['responses'][successObjects[0]]['x-amzn-api-sandbox']['static'][0]['response'])
-                    fs.writeFileSync(`res/${operationId}Response.json`, response)
-                }
-            } catch (e) {
-                console.log(`Unable to write file for operation ${operationId}`)
+        .flatMap((path) =>
+            Object.entries(path)
+                .filter((operation) => operations.includes(operation[0]))
+                .map((operation) => operation[1])
+        ).forEach((operation) => {
+        const operationId = operation.operationId.replace(/^./, operation.operationId[0].toLowerCase())
+        try {
+            const successStatus = ["200", "201", "202"]
+            const successObjects = Object.keys(operation['responses']).filter((key) => successStatus.includes(key))
+            if (Array.isArray(successObjects) && successObjects.length > 0) {
+                const response = JSON.stringify(operation['responses'][successObjects[0]]['x-amzn-api-sandbox']['static'][0]['response'])
+                fs.writeFileSync(`res/responses/${operationId}Response.json`, response)
             }
-        })
+        } catch (e) {
+            console.log(`Unable to write response file for operation ${operationId}`)
+        }
+    })
+
+    // Requests
+    Object.values(content.paths)
+        .flatMap((path) =>
+            Object.entries(path)
+                .filter((operation) => operations.includes(operation[0]))
+                .map((operation) => operation[1])
+        ).forEach((operation) => {
+        const operationId = operation.operationId.replace(/^./, operation.operationId[0].toLowerCase())
+        try {
+            const successStatus = ["200", "201", "202", "204"]
+            const successObjects = Object.keys(operation['responses']).filter((key) => successStatus.includes(key))
+            if (Array.isArray(successObjects) && successObjects.length > 0) {
+                const request = JSON.stringify(operation['responses'][successObjects[0]]['x-amzn-api-sandbox']['static'][0]['request']['parameters']['body']['value'])
+                fs.writeFileSync(`res/requests/${operationId}Request.json`, request)
+            }
+        } catch (e) {
+            console.log(`Unable to write request file for operation ${operationId}`)
+        }
+    })
 }
