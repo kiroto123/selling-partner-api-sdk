@@ -96,6 +96,5 @@ jobs:
           Update Java SDK with latest changes from upstream.
         branch: feature/update-java-sdk
         assignees: mafge
-        reviewers: mafge
         path: ./selling-partner-api-sdk
         token: ${{ secrets.MAFGE_PAT }}

@@ -57,5 +57,4 @@ jobs:
             Bump version after current version has been released.
           branch: feature/bump-version
           assignees: mafge
-          reviewers: mafge
           token: ${{ secrets.MAFGE_PAT }}

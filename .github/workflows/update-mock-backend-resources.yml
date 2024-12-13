@@ -35,6 +35,5 @@ jobs:
             Update mock backend resources with latest changes from upstream.
           branch: feature/update-mock-backend-resources
           assignees: mafge
-          reviewers: mafge
           path: ./selling-partner-api-sdk
           token: ${{ secrets.MAFGE_PAT }}
