@@ -37,3 +37,4 @@ jobs:
           assignees: mafge
           reviewers: mafge
           path: ./selling-partner-api-sdk
+          token: ${{ secrets.MAFGE_PAT }}
