@@ -2,9 +2,10 @@ package com.amazon.SellingPartnerAPI.api.commons;
 
 import com.amazon.SellingPartnerAPIAA.LWAAuthorizationCredentials;
 
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Objects;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse.BodyHandlers;
 
 public abstract class ApiTest {
    protected static String endpoint = "http://localhost:3000";
@@ -16,9 +17,12 @@ public abstract class ApiTest {
            .endpoint(authEndpoint)
            .build();
 
-   protected Reader getRequestFile(String fileName) {
-      return new InputStreamReader(
-              Objects.requireNonNull(this.getClass().getResourceAsStream("/res/requests/" + fileName))
-      );
+   protected void instructBackendMock(String response, String code) throws Exception {
+      HttpRequest request = HttpRequest.newBuilder()
+              .uri(new URI(endpoint + "/response/" + response + "/code/" + code))
+              .POST(HttpRequest.BodyPublishers.noBody())
+              .build();
+
+      HttpClient.newHttpClient().send(request, BodyHandlers.discarding());
    }
 }

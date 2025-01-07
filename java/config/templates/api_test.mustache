@@ -2,45 +2,36 @@
 
 package {{package}};
 
-import {{invokerPackage}}.ApiException;
+import com.amazon.SellingPartnerAPI.ApiResponse;
+import com.amazon.SellingPartnerAPI.api.commons.ApiTest;
 {{#imports}}import {{import}};
 {{/imports}}
-import org.junit.Test;
-import org.junit.Ignore;
+import org.junit.jupiter.api.Test;
 
-{{^fullJavaUtil}}
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-{{/fullJavaUtil}}
-import com.amazon.SellingPartnerAPIAA.LWAException;
+import java.util.*;
 
-/**
-* API tests for {{classname}}
-*/
-@Ignore
-public class {{classname}}Test {
+import static org.junit.jupiter.api.Assertions.*;
 
-private final {{classname}} api = new {{classname}}();
+public class {{classname}}Test extends ApiTest {
+
+private final {{classname}} api = new {{classname}}.Builder()
+    .lwaAuthorizationCredentials(credentials)
+    .endpoint(endpoint)
+    .build();
 
 {{#operations}}{{#operation}}
-/**
-* {{summary}}
-*
-* {{notes}}
-*
-* @throws ApiException if the Api call fails
-* @throws LWAException If calls to fetch LWA access token fails
-*/
-@Test
-public void {{operationId}}Test() throws ApiException, LWAException {
-{{#allParams}}
-    {{{dataType}}} {{paramName}} = null;
-{{/allParams}}
-{{#returnType}}{{{returnType}}} response = {{/returnType}}api.{{operationId}}({{#allParams}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
+    @Test
+    public void {{operationId}}Test() throws Exception {
+        instructBackendMock("{{operationId}}", "{{responses.0.code}}");
+        {{#allParams}}{{#required}}{{#isString}}{{{dataType}}} {{paramName}} = "";{{/isString}}{{#isInteger}}int {{paramName}} = 1;{{/isInteger}}{{#isDateTime}}{{dataType}} {{paramName}} = {{dataType}}.now();{{/isDateTime}}{{#isDate}}{{dataType}} {{paramName}} = {{dataType}}.now();{{/isDate}}{{^isString}}{{^isInteger}}{{^isDateTime}}{{^isDate}}{{{dataType}}} {{paramName}} = new {{#isListContainer}}ArrayList<>{{/isListContainer}}{{^isListContainer}}{{{dataType}}}{{/isListContainer}}();{{/isDate}}{{/isDateTime}}{{/isInteger}}{{/isString}}{{/required}}{{/allParams}}
 
-// TODO: test validations
-}
+        {{#returnType}}ApiResponse<{{{returnType}}}> response = {{/returnType}}api.{{operationId}}WithHttpInfo({{#allParams}}{{#required}}{{paramName}}{{/required}}{{^required}}null{{/required}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
+
+        {{#returnType}}
+        assertEquals({{responses.0.code}}, response.getStatusCode());
+        if({{responses.0.code}} != 204) assertNotNull(response.getData());
+        {{/returnType}}
+    }
+
 {{/operation}}{{/operations}}
 }
