@@ -1515,7 +1515,7 @@ public class FbaInboundApi {
     /**
      * Build call for getShipmentItemsByShipmentId
      * @param shipmentId A shipment identifier used for selecting items in a specific inbound shipment. (required)
-     * @param marketplaceId A marketplace identifier. Specifies the marketplace where the product would be stored. (required)
+     * @param marketplaceId Deprecated. Do not use. (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -1572,10 +1572,6 @@ public class FbaInboundApi {
         if (shipmentId == null) {
             throw new ApiException("Missing the required parameter 'shipmentId' when calling getShipmentItemsByShipmentId(Async)");
         }
-        // verify the required parameter 'marketplaceId' is set
-        if (marketplaceId == null) {
-            throw new ApiException("Missing the required parameter 'marketplaceId' when calling getShipmentItemsByShipmentId(Async)");
-        }
 
         okhttp3.Call call = getShipmentItemsByShipmentIdCall(shipmentId, marketplaceId, progressListener, progressRequestListener);
         return call;
@@ -1586,7 +1582,7 @@ public class FbaInboundApi {
      * 
      * Returns a list of items in a specified inbound shipment.  **Usage Plan:**  | Rate (requests per second) | Burst | | ---- | ---- | | 2 | 30 |  The &#x60;x-amzn-RateLimit-Limit&#x60; response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, see [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).
      * @param shipmentId A shipment identifier used for selecting items in a specific inbound shipment. (required)
-     * @param marketplaceId A marketplace identifier. Specifies the marketplace where the product would be stored. (required)
+     * @param marketplaceId Deprecated. Do not use. (optional)
      * @return GetShipmentItemsResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @throws LWAException If calls to fetch LWA access token fails
@@ -1600,7 +1596,7 @@ public class FbaInboundApi {
      * 
      * Returns a list of items in a specified inbound shipment.  **Usage Plan:**  | Rate (requests per second) | Burst | | ---- | ---- | | 2 | 30 |  The &#x60;x-amzn-RateLimit-Limit&#x60; response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, see [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).
      * @param shipmentId A shipment identifier used for selecting items in a specific inbound shipment. (required)
-     * @param marketplaceId A marketplace identifier. Specifies the marketplace where the product would be stored. (required)
+     * @param marketplaceId Deprecated. Do not use. (optional)
      * @return ApiResponse&lt;GetShipmentItemsResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @throws LWAException If calls to fetch LWA access token fails
@@ -1615,7 +1611,7 @@ public class FbaInboundApi {
      *  (asynchronously)
      * Returns a list of items in a specified inbound shipment.  **Usage Plan:**  | Rate (requests per second) | Burst | | ---- | ---- | | 2 | 30 |  The &#x60;x-amzn-RateLimit-Limit&#x60; response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, see [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).
      * @param shipmentId A shipment identifier used for selecting items in a specific inbound shipment. (required)
-     * @param marketplaceId A marketplace identifier. Specifies the marketplace where the product would be stored. (required)
+     * @param marketplaceId Deprecated. Do not use. (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
