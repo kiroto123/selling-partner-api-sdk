@@ -10,31 +10,31 @@
  * Do not edit the class manually.
  */
 
-package com.amazon.SellingPartnerAPI.api.fulfillment.outbound;
+package com.amazon.SellingPartnerAPI.api.fulfillment.outbound.v2020_07_01;
 
 import com.amazon.SellingPartnerAPI.ApiResponse;
 import com.amazon.SellingPartnerAPI.api.commons.ApiTest;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.CancelFulfillmentOrderResponse;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.CreateFulfillmentOrderRequest;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.CreateFulfillmentOrderResponse;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.CreateFulfillmentReturnRequest;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.CreateFulfillmentReturnResponse;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.GetDeliveryOffersRequest;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.GetDeliveryOffersResponse;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.GetFeatureInventoryResponse;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.GetFeatureSkuResponse;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.GetFeaturesResponse;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.GetFulfillmentOrderResponse;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.GetFulfillmentPreviewRequest;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.GetFulfillmentPreviewResponse;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.GetPackageTrackingDetailsResponse;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.ListAllFulfillmentOrdersResponse;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.ListReturnReasonCodesResponse;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.CancelFulfillmentOrderResponse;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.CreateFulfillmentOrderRequest;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.CreateFulfillmentOrderResponse;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.CreateFulfillmentReturnRequest;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.CreateFulfillmentReturnResponse;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.GetDeliveryOffersRequest;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.GetDeliveryOffersResponse;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.GetFeatureInventoryResponse;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.GetFeatureSkuResponse;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.GetFeaturesResponse;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.GetFulfillmentOrderResponse;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.GetFulfillmentPreviewRequest;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.GetFulfillmentPreviewResponse;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.GetPackageTrackingDetailsResponse;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.ListAllFulfillmentOrdersResponse;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.ListReturnReasonCodesResponse;
 import org.threeten.bp.OffsetDateTime;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.SubmitFulfillmentOrderStatusUpdateRequest;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.SubmitFulfillmentOrderStatusUpdateResponse;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.UpdateFulfillmentOrderRequest;
-import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.UpdateFulfillmentOrderResponse;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.SubmitFulfillmentOrderStatusUpdateRequest;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.SubmitFulfillmentOrderStatusUpdateResponse;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.UpdateFulfillmentOrderRequest;
+import com.amazon.SellingPartnerAPI.models.fulfillment.outbound.v2020_07_01.UpdateFulfillmentOrderResponse;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
