@@ -3,27 +3,41 @@
 package {{package}};
 
 import com.amazon.SellingPartnerAPI.ApiResponse;
-import com.amazon.SellingPartnerAPI.api.commons.ApiTest;
+import com.amazon.SellingPartnerAPIAA.LWAAuthorizationCredentials;
 {{#imports}}import {{import}};
 {{/imports}}
 import org.junit.jupiter.api.Test;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class {{classname}}Test extends ApiTest {
+public class {{classname}}Test {
 
-private final {{classname}} api = new {{classname}}.Builder()
-    .lwaAuthorizationCredentials(credentials)
-    .endpoint(endpoint)
-    .build();
+   private static String endpoint = "http://localhost:3000";
+   private static String authEndpoint = "http://localhost:3000/auth/o2/token";
+   private static LWAAuthorizationCredentials credentials = LWAAuthorizationCredentials.builder()
+        .clientId("clientId")
+        .clientSecret("clientSecret")
+        .refreshToken("refreshToken")
+        .endpoint(authEndpoint)
+        .build();
+
+   private final {{classname}} api = new {{classname}}.Builder()
+        .lwaAuthorizationCredentials(credentials)
+        .endpoint(endpoint)
+        .build();
 
 {{#operations}}{{#operation}}
     @Test
     public void {{operationId}}Test() throws Exception {
         instructBackendMock("{{operationId}}", "{{responses.0.code}}");
-        {{#allParams}}{{#required}}{{#isString}}{{{dataType}}} {{paramName}} = "";{{/isString}}{{#isInteger}}int {{paramName}} = 1;{{/isInteger}}{{#isDateTime}}{{dataType}} {{paramName}} = {{dataType}}.now();{{/isDateTime}}{{#isDate}}{{dataType}} {{paramName}} = {{dataType}}.now();{{/isDate}}{{^isString}}{{^isInteger}}{{^isDateTime}}{{^isDate}}{{{dataType}}} {{paramName}} = new {{#isListContainer}}ArrayList<>{{/isListContainer}}{{^isListContainer}}{{{dataType}}}{{/isListContainer}}();{{/isDate}}{{/isDateTime}}{{/isInteger}}{{/isString}}{{/required}}{{/allParams}}
+        {{#allParams}}{{#required}}{{#isString}}{{{dataType}}} {{paramName}} = "";{{/isString}}{{#isInteger}}int {{paramName}} = 1;{{/isInteger}}{{#isDateTime}}{{dataType}} {{paramName}} = {{dataType}}.now();{{/isDateTime}}{{#isDate}}{{dataType}} {{paramName}} = {{dataType}}.now();{{/isDate}}{{^isString}}{{^isInteger}}{{^isDateTime}}{{^isDate}}{{{dataType}}} {{paramName}} = new {{#isListContainer}}ArrayList<>{{/isListContainer}}{{^isListContainer}}{{{dataType}}}{{/isListContainer}}();
+        {{/isDate}}{{/isDateTime}}{{/isInteger}}{{/isString}}{{/required}}{{/allParams}}
 
         {{#returnType}}ApiResponse<{{{returnType}}}> response = {{/returnType}}api.{{operationId}}WithHttpInfo({{#allParams}}{{#required}}{{paramName}}{{/required}}{{^required}}null{{/required}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
 
@@ -34,4 +48,13 @@ private final {{classname}} api = new {{classname}}.Builder()
     }
 
 {{/operation}}{{/operations}}
+
+    private void instructBackendMock(String response, String code) throws Exception {
+        HttpRequest request = HttpRequest.newBuilder()
+              .uri(new URI(endpoint + "/response/" + response + "/code/" + code))
+              .POST(HttpRequest.BodyPublishers.noBody())
+              .build();
+
+        HttpClient.newHttpClient().send(request, BodyHandlers.discarding());
+    }
 }
