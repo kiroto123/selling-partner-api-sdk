@@ -4,3 +4,4 @@
 git_push.sh
 composer.json
 README.md
+docs/*
