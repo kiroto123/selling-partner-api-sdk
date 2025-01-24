@@ -1,10 +1,5 @@
 .gitignore
 .php-cs-fixer.dist.php
-docs/Api/VendorTransactionApi.md
-docs/Model/Error.md
-docs/Model/GetTransactionResponse.md
-docs/Model/Transaction.md
-docs/Model/TransactionStatus.md
 lib/Api/vendor/transactionStatus/VendorTransactionApi.php
 lib/ApiException.php
 lib/Configuration.php
