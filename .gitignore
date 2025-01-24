@@ -11,3 +11,4 @@ php/sdk/.DS_Store
 package.xml
 php/.env
 php/config/templates/README.mustache
+**/node_modules

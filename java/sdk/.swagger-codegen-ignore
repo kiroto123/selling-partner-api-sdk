@@ -6,4 +6,4 @@ gradle.properties
 pom.xml
 src/main/AndroidManifest.xml
 docs/**
-src/test/**
+README.md
