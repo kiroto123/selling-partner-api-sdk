@@ -46,7 +46,7 @@ jobs:
           tag_name: ${{ github.event.inputs.currentVersionNumber }}
       - name: Bump version
         working-directory: java/config
-        run: | 
+        run: |
           sed -i '/"artifactVersion": "${{ github.event.inputs.currentVersionNumber }}"/s/"${{ github.event.inputs.currentVersionNumber }}"/"${{ github.event.inputs.newVersionNumber }}"/' config.json
       - name: Create PR
         uses: peter-evans/create-pull-request@v7
@@ -57,4 +57,4 @@ jobs:
             Bump version after current version has been released.
           branch: feature/bump-version
           assignees: mafge
-          reviewers: mafge
+          token: ${{ secrets.MAFGE_PAT }}
