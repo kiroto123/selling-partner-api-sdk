@@ -1,0 +1,6 @@
+# Skip generation of unnecessary files
+
+.travis.yml
+git_push.sh
+composer.json
+README.md

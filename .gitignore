@@ -1,5 +1,14 @@
 .idea/**
 **/.gradle
 **/build
+**.jarp
 **.jar
+php/composer.lock
+php/vendor/
+php/sdk/.DS_Store
+.DS_Store
+*.cache
+package.xml
+php/.env
+php/config/templates/README.mustache
 **/node_modules
