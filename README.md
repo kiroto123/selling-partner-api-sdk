@@ -16,8 +16,8 @@ In order to use SP-API you must register as a Selling Partner API developer. Ple
 
 You can get started with the SDK in minutes following the instructions for your preferred programming language.
 
-* [Java](https://github.com/amzn/selling-partner-api-sdk/blob/main/java/sdk/README.md)
-* [PHP](https://github.com/leonardonakagawa/selling-partner-api-sdk/blob/main/php/README.md)
+* [Java](https://github.com/amzn/selling-partner-api-sdk/tree/main/java)
+* [PHP](https://github.com/amzn/selling-partner-api-sdk/tree/main/php)
 
 ### Giving Feedback
 
