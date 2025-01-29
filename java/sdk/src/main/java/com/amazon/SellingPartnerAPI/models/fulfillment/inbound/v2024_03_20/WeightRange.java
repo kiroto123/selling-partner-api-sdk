@@ -24,19 +24,62 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.math.BigDecimal;
 /**
- * The weight of a package.
+ * The range of weights that are allowed for a package.
  */
-@Schema(description = "The weight of a package.")
+@Schema(description = "The range of weights that are allowed for a package.")
 
 
-public class Weight {
+public class WeightRange {
+  @SerializedName("maximum")
+  private BigDecimal maximum = null;
+
+  @SerializedName("minimum")
+  private BigDecimal minimum = null;
+
   @SerializedName("unit")
   private UnitOfWeight unit = null;
 
-  @SerializedName("value")
-  private BigDecimal value = null;
+  public WeightRange maximum(BigDecimal maximum) {
+    this.maximum = maximum;
+    return this;
+  }
 
-  public Weight unit(UnitOfWeight unit) {
+   /**
+   * Maximum allowed weight.
+   * minimum: 0
+   * maximum: 100000
+   * @return maximum
+  **/
+  @Schema(required = true, description = "Maximum allowed weight.")
+  public BigDecimal getMaximum() {
+    return maximum;
+  }
+
+  public void setMaximum(BigDecimal maximum) {
+    this.maximum = maximum;
+  }
+
+  public WeightRange minimum(BigDecimal minimum) {
+    this.minimum = minimum;
+    return this;
+  }
+
+   /**
+   * Minimum allowed weight.
+   * minimum: 0
+   * maximum: 100000
+   * @return minimum
+  **/
+  @Schema(required = true, description = "Minimum allowed weight.")
+  public BigDecimal getMinimum() {
+    return minimum;
+  }
+
+  public void setMinimum(BigDecimal minimum) {
+    this.minimum = minimum;
+  }
+
+  public WeightRange unit(UnitOfWeight unit) {
     this.unit = unit;
     return this;
   }
@@ -54,26 +97,6 @@ public class Weight {
     this.unit = unit;
   }
 
-  public Weight value(BigDecimal value) {
-    this.value = value;
-    return this;
-  }
-
-   /**
-   * Value of a weight.
-   * minimum: 0
-   * maximum: 100000
-   * @return value
-  **/
-  @Schema(required = true, description = "Value of a weight.")
-  public BigDecimal getValue() {
-    return value;
-  }
-
-  public void setValue(BigDecimal value) {
-    this.value = value;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -83,24 +106,26 @@ public class Weight {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Weight weight = (Weight) o;
-    return Objects.equals(this.unit, weight.unit) &&
-        Objects.equals(this.value, weight.value);
+    WeightRange weightRange = (WeightRange) o;
+    return Objects.equals(this.maximum, weightRange.maximum) &&
+        Objects.equals(this.minimum, weightRange.minimum) &&
+        Objects.equals(this.unit, weightRange.unit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(unit, value);
+    return Objects.hash(maximum, minimum, unit);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Weight {\n");
+    sb.append("class WeightRange {\n");
     
+    sb.append("    maximum: ").append(toIndentedString(maximum)).append("\n");
+    sb.append("    minimum: ").append(toIndentedString(minimum)).append("\n");
     sb.append("    unit: ").append(toIndentedString(unit)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();
   }
