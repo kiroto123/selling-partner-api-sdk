@@ -14,6 +14,7 @@ package com.amazon.SellingPartnerAPI.models.fulfillment.inbound.v2024_03_20;
 
 import java.util.Objects;
 import java.util.Arrays;
+import com.amazon.SellingPartnerAPI.models.fulfillment.inbound.v2024_03_20.WeightRange;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -22,31 +23,31 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * The &#x60;generateDeliveryWindowOptions&#x60; response.
+ * The requirements for a box in the packing option.
  */
-@Schema(description = "The `generateDeliveryWindowOptions` response.")
+@Schema(description = "The requirements for a box in the packing option.")
 
 
-public class GenerateDeliveryWindowOptionsResponse {
-  @SerializedName("operationId")
-  private String operationId = null;
+public class BoxRequirements {
+  @SerializedName("weight")
+  private WeightRange weight = null;
 
-  public GenerateDeliveryWindowOptionsResponse operationId(String operationId) {
-    this.operationId = operationId;
+  public BoxRequirements weight(WeightRange weight) {
+    this.weight = weight;
     return this;
   }
 
    /**
-   * UUID for the given operation.
-   * @return operationId
+   * Get weight
+   * @return weight
   **/
-  @Schema(required = true, description = "UUID for the given operation.")
-  public String getOperationId() {
-    return operationId;
+  @Schema(required = true, description = "")
+  public WeightRange getWeight() {
+    return weight;
   }
 
-  public void setOperationId(String operationId) {
-    this.operationId = operationId;
+  public void setWeight(WeightRange weight) {
+    this.weight = weight;
   }
 
 
@@ -58,22 +59,22 @@ public class GenerateDeliveryWindowOptionsResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    GenerateDeliveryWindowOptionsResponse generateDeliveryWindowOptionsResponse = (GenerateDeliveryWindowOptionsResponse) o;
-    return Objects.equals(this.operationId, generateDeliveryWindowOptionsResponse.operationId);
+    BoxRequirements boxRequirements = (BoxRequirements) o;
+    return Objects.equals(this.weight, boxRequirements.weight);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(operationId);
+    return Objects.hash(weight);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class GenerateDeliveryWindowOptionsResponse {\n");
+    sb.append("class BoxRequirements {\n");
     
-    sb.append("    operationId: ").append(toIndentedString(operationId)).append("\n");
+    sb.append("    weight: ").append(toIndentedString(weight)).append("\n");
     sb.append("}");
     return sb.toString();
   }
