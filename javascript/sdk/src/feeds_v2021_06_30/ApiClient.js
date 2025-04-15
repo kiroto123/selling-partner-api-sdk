@@ -26,32 +26,27 @@ import { URL } from 'node:url';
 */
 class LwaOAuthClient {
     /**
-    * Private member to store LWA credential and refresh token.
-    * @type {Object.<String, String>}
+    * Private member to store LWA credential, refresh token or scope.
+    * @type {Object<String, String>}
     */
     #lwaClientInfo = {};
 
     /**
-    * Private member to cache one access token that is retrieved by auto-retrieval.
-    * @type {String | null}
+    * Private member to cache access token that is retrieved by auto-retrieval.
+    * @type {Map<String, {String, Number}> | null}
     */
-    #cachedToken = null;
-
-    /**
-    * Private member to cache one access token that is retrieved by auto-retrieval.
-    * @type {Number | null}
-    */
-    #cachedTokenExpiration = null;
+    #cachedTokenMap = null;
 
     /**
     * Constructs a new LwaOAuthClient.
     * @param {String} clientId LWA Client ID.
     * @param {String} clientSecret LWA Client Secret.
-    * @param {String} refreshToken LWA Refresh token.
+    * @param {String|null} refreshToken LWA Refresh token.
+    * @param {Array<String>|null} scope LWA scope for grantless operations.
     */
-    constructor(clientId, clientSecret, refreshToken) {
+    constructor(clientId, clientSecret, refreshToken = null, scope = null) {
         this.#lwaClientInfo = {
-            clientId, clientSecret, refreshToken,
+            clientId, clientSecret, refreshToken, scope
         };
     }
 
@@ -60,13 +55,28 @@ class LwaOAuthClient {
      * @returns {Promise<String>} LWA access token.
      */
     retrieveAccessToken = async () => {
-        if (this.#cachedToken && this.#cachedTokenExpiration && this.#cachedTokenExpiration > Date.now()) {
-            return Promise.resolve(this.#cachedToken);
+        const key = JSON.stringify(this.#lwaClientInfo);
+
+        if (this.#cachedTokenMap) {
+            const cachedTokenItem = this.#cachedTokenMap.get(key);
+
+            if (cachedTokenItem) {
+                const cachedToken = cachedTokenItem.cachedToken;
+                const cachedTokenExpiration = cachedTokenItem.cachedTokenExpiration;
+                if (cachedTokenExpiration > Date.now()) {
+                    return Promise.resolve(cachedToken); 
+                } else {
+                    this.#cachedTokenMap.delete(key);
+                }
+            }
         }
+
         const res = await this.#doRefresh();
-        this.#cachedToken = res.access_token;
-        this.#cachedTokenExpiration = Date.now() + res.expires_in * 1000;
-        return this.#cachedToken;
+        if (!this.#cachedTokenMap) {
+            this.#cachedTokenMap = new Map();
+        }
+        this.#cachedTokenMap.set(key, {cachedToken: res.access_token, cachedTokenExpiration: Date.now() + res.expires_in * 1000});
+        return res.access_token;
     }
 
     /**
@@ -74,10 +84,23 @@ class LwaOAuthClient {
      * @returns {Promise<Object>} LWA token response.
      */
     #doRefresh = async () => {
+        let requestBody = null;
+        if (this.#lwaClientInfo.scope) {
+            //grantless operations
+            requestBody = `grant_type=client_credentials&client_id=${this.#lwaClientInfo.clientId}&client_secret=${this.#lwaClientInfo.clientSecret}&scope=${this.#lwaClientInfo.scope}`;
+        } else {
+            requestBody = `grant_type=refresh_token&refresh_token=${this.#lwaClientInfo.refreshToken}&client_id=${this.#lwaClientInfo.clientId}&client_secret=${this.#lwaClientInfo.clientSecret}`;
+        }
         const res = await superagent.post('https://api.amazon.com/auth/o2/token')
-            .send(`grant_type=refresh_token&refresh_token=${this.#lwaClientInfo.refreshToken}&client_id=${this.#lwaClientInfo.clientId}&client_secret=${this.#lwaClientInfo.clientSecret}`)
+            .send(requestBody)
             .set("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         return res.body;
+    }
+
+    clearCachedTokenMap() {
+        if (this.#cachedTokenMap) {
+            this.#cachedTokenMap.clear();
+        }
     }
 }
 
@@ -88,13 +111,13 @@ class LwaOAuthClient {
 class TokensApiClient {
     /**
     * Private member to execute LWA refresh token flow.
-    * @type {Object.<LwaOAuthClient>}
+    * @type {Object<LwaOAuthClient>}
     */
     #lwaClient = null;
 
     /**
     * Private member to store 'dataElements' parameter for Tokens API call.
-    * @type {Array.<String>}
+    * @type {Array<String>}
     */
     #dataElements = null;
 
@@ -103,10 +126,10 @@ class TokensApiClient {
     * @param {String} clientId LWA Client ID.
     * @param {String} clientSecret LWA Client Secret.
     * @param {String} refreshToken LWA Refresh token.
-    * @param {Array.<String>} dataElements Optional specifiers for PII data elements tp retrieve.
+    * @param {Array<String>} dataElements Optional specifiers for PII data elements tp retrieve.
     */
     constructor(clientId, clientSecret, refreshToken, dataElements) {
-        this.#lwaClient = new LwaOAuthClient(clientId, clientSecret, refreshToken, dataElements);
+        this.#lwaClient = new LwaOAuthClient(clientId, clientSecret, refreshToken, null);
         if (dataElements && !Array.isArray(dataElements)) {
             throw new Error(`dataElements parameter to TokensApiClient constructor must be array of string. Illegal parameter:${dataElements}`);
         }
@@ -117,7 +140,7 @@ class TokensApiClient {
      * Execute createRestrictedDataToken to retrieve RDT to be used for PII-handling SP-API calls.
      * @param {String} method method for SP-API request.
      * @param {String} url URL for SP-API call to be made.
-     * @param {Array.<String>} dataElements specify PII information to get from "buyerInfo", "shippingAddress" and "buyerTaxInformation".
+     * @param {Array<String>} dataElements specify PII information to get from "buyerInfo", "shippingAddress" and "buyerTaxInformation".
      * @returns {Promise<String>} Restricted Data Token (RDT).
      */
     retrieveRestrictedDataToken = async (method, url) => {
@@ -127,11 +150,11 @@ class TokensApiClient {
         return res.restrictedDataToken;
     }
 
-     /**
+    /**
      * Private method to execute createRestrictedDataToken
      * @param {String} accessToken Access token to call RDT request.
      * @param {URL} url URL object for URL string manipulation.
-     * @param {Array.<String>} dataElements specify PII information to get from "buyerInfo", "shippingAddress" and "buyerTaxInformation".
+     * @param {Array<String>} dataElements specify PII information to get from "buyerInfo", "shippingAddress" and "buyerTaxInformation".
      * @returns {Promise<Object>} createRestrictedDataToken response.
      */
     #doCreateRestrictedDataToken = async (accessToken, method, url) => {
@@ -180,14 +203,14 @@ export class ApiClient {
 
         /**
          * The authentication methods to be included for all API calls.
-         * @type {Array.<String>}
+         * @type {Array<String>}
          */
         this.authentications = {
         }
 
         /**
          * The default HTTP headers to be included for all API calls.
-         * @type {Array.<String>}
+         * @type {Array<String>}
          * @default {}
          */
         this.defaultHeaders = {
@@ -235,11 +258,10 @@ export class ApiClient {
     * @param {String} clientId LWA client ID.
     * @param {String} clientSecret LWA client secret.
     * @param {String} refreshToken LWA refresh token.
-    * @param {Array.<String>} dataElementsOption specify PII information to get from "buyerInfo", "shippingAddress" and "buyerTaxInformation".
+    * @param {Array<String>} dataElementsOption specify PII information to get from "buyerInfo", "shippingAddress" and "buyerTaxInformation".
     * @returns {ApiClient} This ApiClient, which is going to use give accessToken for all API calls.
     */
     enableAutoRetrievalRestrictedDataToken(clientId, clientSecret, refreshToken, dataElementsOption) {
-        // TODO
         if (!clientId || !clientSecret || !refreshToken) {
             throw new Error('invalid parameter(s) to enableAutoRetrievalRestrictedDataToken.');
         }
@@ -251,15 +273,27 @@ export class ApiClient {
     * Returns this ApiClient so that you can chain the methods.
     * @param {String} clientId LWA client ID.
     * @param {String} clientSecret LWA client secret.
-    * @param {String} refreshToken LWA refresh token.
+    * @param {String|null} refreshToken LWA refresh token.
+    * @param {Array<String>|null} scope LWA scope for grantless operations.
     * @returns {ApiClient} This ApiClient, which is going to use give accessToken for all API calls.
     */
-    enableAutoRetrievalAccessToken(clientId, clientSecret, refreshToken) {
-        if (!clientId || !clientSecret || !refreshToken) {
-            throw new Error('invalid parameter(s) to enableAutoRetrievalAccessToken.');
+    enableAutoRetrievalAccessToken(clientId, clientSecret, refreshToken = null, scope = null) {
+        if (!clientId || !clientSecret) {
+            throw new Error('invalid parameter(s) to enableAutoRetrievalAccessToken: clientId or clientSecret is null or undefined.');
+        } else if ((!refreshToken && !scope) || (refreshToken && scope)) {
+            throw new Error('invalid parameter(s) to enableAutoRetrievalAccessToken: either refreshToken or scope must be defined.');
         }
-        this.#lwaClient = new LwaOAuthClient(clientId, clientSecret, refreshToken);
+        this.#lwaClient = new LwaOAuthClient(clientId, clientSecret, refreshToken, scope);
         return this;
+    }
+
+    /**
+     * Clear Token Cache
+     */
+    clearAccessTokenCache() {
+        if (this.#lwaClient) {
+            this.#lwaClient.clearCachedTokenMap();
+        }
     }
 
 
@@ -285,7 +319,6 @@ export class ApiClient {
         if (param instanceof Date) {
             return param.toJSON();
         }
-
         return param.toString();
     }
 
@@ -300,7 +333,6 @@ export class ApiClient {
         if (!path.match(/^\//)) {
             path = '/' + path;
         }
-
         var url = this.basePath + path;
         url = url.replace(/\{([\w-]+)\}/g, (fullMatch, key) => {
             var value;
@@ -309,10 +341,8 @@ export class ApiClient {
             } else {
                 value = fullMatch;
             }
-
             return encodeURIComponent(value);
         });
-
         return url;
     }
 
@@ -333,7 +363,7 @@ export class ApiClient {
 
     /**
     * Chooses a content type from the given array, with JSON preferred; i.e. return JSON if included, otherwise return the first.
-    * @param {Array.<String>} contentTypes
+    * @param {Array<String>} contentTypes
     * @returns {String} The chosen content type, preferring JSON.
     */
     jsonPreferredMime(contentTypes) {
@@ -342,7 +372,6 @@ export class ApiClient {
                 return contentTypes[i];
             }
         }
-
         return contentTypes[0];
     }
 
@@ -388,8 +417,8 @@ export class ApiClient {
     * <li>keep files and arrays</li>
     * <li>format to string with `paramToString` for other cases</li>
     * </ul>
-    * @param {Object.<String, Object>} params The parameters as object properties.
-    * @returns {Object.<String, Object>} normalized parameters.
+    * @param {Object<String, Object>} params The parameters as object properties.
+    * @returns {Object<String, Object>} normalized parameters.
     */
     normalizeParams(params) {
         var newParams = {};
@@ -403,7 +432,6 @@ export class ApiClient {
                 }
             }
         }
-
         return newParams;
     }
 
@@ -488,7 +516,7 @@ export class ApiClient {
     /**
     * Deserializes an HTTP response body into a value of the specified type.
     * @param {Object} response A SuperAgent response object.
-    * @param {(String|Array.<String>|Object.<String, Object>|Function)} returnType The type to return. Pass a string for simple types
+    * @param {(String|Array<String>|Object<String, Object>|Function)} returnType The type to return. Pass a string for simple types
     * or the constructor function for a complex type. Pass an array containing the type name to return an array of that type. To
     * return an object, pass an object with one property whose name is the key type and whose value is the corresponding value type:
     * all properties on <code>data<code> will be converted to this type.
@@ -516,13 +544,13 @@ export class ApiClient {
     * Invokes the REST service using the supplied settings and parameters.
     * @param {String} path The base URL to invoke.
     * @param {String} httpMethod The HTTP method to use.
-    * @param {Object.<String, String>} pathParams A map of path parameters and their values.
-    * @param {Object.<String, Object>} queryParams A map of query parameters and their values.
-    * @param {Object.<String, Object>} headerParams A map of header parameters and their values.
-    * @param {Object.<String, Object>} formParams A map of form parameters and their values.
+    * @param {Object<String, String>} pathParams A map of path parameters and their values.
+    * @param {Object<String, Object>} queryParams A map of query parameters and their values.
+    * @param {Object<String, Object>} headerParams A map of header parameters and their values.
+    * @param {Object<String, Object>} formParams A map of form parameters and their values.
     * @param {Object} bodyParam The value to pass as the request body.
-    * @param {Array.<String>} contentTypes An array of request MIME types.
-    * @param {Array.<String>} accepts An array of acceptable response MIME types.
+    * @param {Array<String>} contentTypes An array of request MIME types.
+    * @param {Array<String>} accepts An array of acceptable response MIME types.
     * @param {(String|Array|ObjectFunction)} returnType The required type to return; can be a string for simple types or the
     * constructor for a complex type.
     * @returns {Promise} A {@link https://www.promisejs.org/|Promise} object.
@@ -627,7 +655,6 @@ export class ApiClient {
                         if (this.enableCookies && typeof window === 'undefined'){
                             this.agent.saveCookies(response);
                         }
-
                         resolve({data, response});
                     } catch (err) {
                         reject(err);
@@ -651,7 +678,7 @@ export class ApiClient {
     /**
     * Converts a value to the specified type.
     * @param {(String|Object)} data The data to convert, as a string or object.
-    * @param {(String|Array.<String>|Object.<String, Object>|Function)} type The type to return. Pass a string for simple types
+    * @param {(String|Array<String>|Object<String, Object>|Function)} type The type to return. Pass a string for simple types
     * or the constructor function for a complex type. Pass an array containing the type name to return an array of that type. To
     * return an object, pass an object with one property whose name is the key type and whose value is the corresponding value type:
     * all properties on <code>data<code> will be converted to this type.
@@ -684,7 +711,6 @@ export class ApiClient {
                 } else if (Array.isArray(type)) {
                     // for array type like: ['String']
                     var itemType = type[0];
-
                     return data.map((item) => {
                         return ApiClient.convertToType(item, itemType);
                     });
