@@ -45,9 +45,6 @@
     "index.js",
     "README.md"
   ],
-  "imports": {
-    "#/*": "./*"
-  },
   "exports": {
     ".": "./index.js"
   },

@@ -68,31 +68,30 @@ async function createDestination() {
 * It uses LwaAuthClient in helpr/ to get acess token
 */
 async function getOrders() {
-try {
-    //Set up LwaAuthClient instance
-    const lwaAuthClient = new LwaAuthClient(AppConfig.lwaClientId, AppConfig.lwaClientSecret, AppConfig.lwaRefreshToken, null);
+  try {
+      //Set up LwaAuthClient instance
+      const lwaAuthClient = new LwaAuthClient(AppConfig.lwaClientId, AppConfig.lwaClientSecret, AppConfig.lwaRefreshToken, null);
+      
+      //Configure Orders ApiClient
+      const ordersApiClient = new OrdersSpApi.ApiClient(AppConfig.spApiNAEndpoint);
+      ordersApiClient.applyXAmzAccessTokenToRequest(
+        await lwaAuthClient.getAccessToken()
+      );
+      const ordersApi = new OrdersSpApi.OrdersV0Api(ordersApiClient);
 
-    //Configure Orders ApiClient
-    const ordersApiClient = new OrdersSpApi.ApiClient(AppConfig.spApiNAEndpoint);
-    ordersApiClient.applyXAmzAccessTokenToRequest(
-      await lwaAuthClient.getAccessToken()
-    );
-    const ordersApi = new OrdersSpApi.OrdersV0Api(ordersApiClient);
-    
-    //Call GetOrders API
-    const marketPlaceIds = ['ATVPDKIKX0DER'];
-    const opts = {
-      createdAfter: '2024-01-01'
-    };
-    const orders = await ordersApi.getOrders(marketPlaceIds, opts);
-    console.log(
-      JSON.stringify(orders, null, ' ') + 
-        '\n**********************************'
-    )
-
-} catch (error) {
-    console.error('Exception when calling getMarketplaceParticipations API', error.message);
-}
+      //Call GetOrders API
+      const marketPlaceIds = ['ATVPDKIKX0DER'];
+      const opts = {
+        createdAfter: '2024-01-01'
+      };
+      const orders = await ordersApi.getOrders(marketPlaceIds, opts);
+      console.log(
+        JSON.stringify(orders, null, ' ') +
+          '\n**********************************'
+      )
+  } catch (error) {
+      console.error('Exception when calling getMarketplaceParticipations API', error.message);
+  }
 }
 
 // Uncomment to execute the functions
