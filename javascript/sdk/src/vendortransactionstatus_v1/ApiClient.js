@@ -14,6 +14,8 @@
 import superagent from "superagent";
 import querystring from "querystring";
 import { URL } from 'node:url';
+import Bottleneck from 'bottleneck';
+import { RateLimitConfiguration } from "../../helper/RateLimitConfiguration.mjs";
 
 /**
 * @module vendortransactionstatus_v1/ApiClient
@@ -63,7 +65,9 @@ class LwaOAuthClient {
             if (cachedTokenItem) {
                 const cachedToken = cachedTokenItem.cachedToken;
                 const cachedTokenExpiration = cachedTokenItem.cachedTokenExpiration;
-                if (cachedTokenExpiration > Date.now()) {
+                //Adjustment in milliseconds (60s) to avoid using nearly expired tokens
+                const adjustedExpiryTime = cachedTokenExpiration - 60000;
+                if (adjustedExpiryTime > Date.now()) {
                     return Promise.resolve(cachedToken); 
                 } else {
                     this.#cachedTokenMap.delete(key);
@@ -178,6 +182,64 @@ class TokensApiClient {
 }
 
 /**
+* Private class used by ApiClient class. Used for superagent rate limiter.
+* @class
+*/
+class SuperagentRateLimiter {
+    /** @type {Bottleneck} */
+    #limiter;
+    /** @type {Number} */
+    #timeout;
+    /**
+     * @param {RateLimitConfiguration} config 
+     */
+    constructor(config) {
+        if (!config.getRateLimitPermit() || !config.getTimeOut()) {
+            throw new Error("Invalid parameter for RateLimitConfiguration");
+        }
+
+        // Convert requests per second to minTime
+        // Example: if rateLimitPermit is 0.5, minTime should be 2000ms (1/0.5 * 1000)
+        const minTime = Math.ceil((1 / config.getRateLimitPermit()) * 1000);
+
+        this.#limiter = new Bottleneck({
+            minTime: minTime,
+            maxConcurrent: 1,
+            highWater: 0, // Don't queue requests
+            strategy: Bottleneck.strategy.BLOCK // Block new requests when at capacity
+        });
+
+        this.#timeout = config.getTimeOut();
+    }
+
+    /**
+     * Creates a Superagent plugin that implements rate limiting
+     * @returns {function} Superagent plugin
+     */
+    getPlugin() {
+        return (request) => {
+            // Add rate limiting before the request is sent
+            request.on('request', async () => {
+                try {
+                    // Schedule the request with timeout
+                    await this.#limiter.schedule({
+                        expiration: this.#timeout
+                    }, async () => {
+                        // This is just a placeholder operation since we only need the rate limiting
+                        return Promise.resolve();
+                    });
+                } catch (error) {
+                    if (error.message === 'operation timed out') {
+                        throw new Error('Rate limit timeout');
+                    }
+                    throw new Error(`Rate limit error: ${error.message}`);
+                }
+            });
+        };
+    }
+}
+
+/**
 * Manages low level client-server communications, parameter marshalling, etc. There should not be any need for an
 * application to use this class directly - the *Api and model classes provide the public API for the service. The
 * contents of this file should be regarded as internal but are documented for completeness.
@@ -188,6 +250,7 @@ export class ApiClient {
     #tokenForApiCall = null;
     #lwaClient = null;
     #rdtClient = null;
+    #rateLimiter = null;
 
     /**
     * Constructs a new ApiClient.
@@ -254,6 +317,21 @@ export class ApiClient {
     }
 
     /**
+    * Set customized rate limiter
+    * @param {RateLimitConfiguration} config
+    */
+    setRateLimiter(config) {
+        this.#rateLimiter = new SuperagentRateLimiter(config);
+    }
+
+    /**
+    * Clear customized rate limiter
+    */
+    clearRatelimiter() {
+        this.#rateLimiter = null;
+    }
+
+    /**
     * Returns this ApiClient so that you can chain the methods.
     * @param {String} clientId LWA client ID.
     * @param {String} clientSecret LWA client secret.
@@ -296,7 +374,6 @@ export class ApiClient {
         }
     }
 
-
     /**
     * Returns this ApiClient so that you can chain the methods.
     * @param {String} restrictedDataToken RDT token to use for SP-API call.
@@ -306,6 +383,19 @@ export class ApiClient {
         this.#tokenForApiCall = restrictedDataToken;
         return this;
     }
+
+    /**
+    * Applies authentication headers to the request.
+    * @param {String} accessOrRdtToken Either Access Token or Restricted Data Token to add as 'x-amz-access-token'.
+    * @returns {ApiClient} This ApiClient, which is going to use give RDT for all API calls.
+    */
+    applyXAmzAccessTokenToRequest(accessOrRdtToken) {
+        if (!accessOrRdtToken) {
+            throw new Error('empty string, null or undefined passed to applyXAmzAccessTokenToRequest');
+        }
+        this.#tokenForApiCall = accessOrRdtToken;
+        return this;
+    }    
 
     /**
     * Returns a string representation for an actual parameter.
@@ -501,19 +591,6 @@ export class ApiClient {
     }
 
     /**
-    * Applies authentication headers to the request.
-    * @param {String} accessOrRdtToken Either Access Token or Restricted Data Token to add as 'x-amz-access-token'.
-    * @returns {ApiClient} This ApiClient, which is going to use give RDT for all API calls.
-    */
-    applyXAmzAccessTokenToRequest(accessOrRdtToken) {
-        if (!accessOrRdtToken) {
-            throw new Error('empty string, null or undefined passed to applyXAmzAccessTokenToRequest');
-        }
-        this.#tokenForApiCall = accessOrRdtToken;
-        return this;
-    }
-
-    /**
     * Deserializes an HTTP response body into a value of the specified type.
     * @param {Object} response A SuperAgent response object.
     * @param {(String|Array<String>|Object<String, Object>|Function)} returnType The type to return. Pass a string for simple types
@@ -563,6 +640,11 @@ export class ApiClient {
         var request = superagent(httpMethod, url);
         if (!this.#tokenForApiCall && !this.#lwaClient && !this.#rdtClient) {
             throw new Error('none of accessToken, RDT token and auto-retrieval is set.');
+        }
+
+        //Set rate limiter
+        if (this.#rateLimiter) {
+            request.use(this.#rateLimiter.getPlugin());
         }
 
         // set query parameters

@@ -3,8 +3,10 @@ import {
   SellersSpApi,
   NotificationsSpApi,
   LwaAuthClient,
-  ScopeConstants
+  ScopeConstants,
+  RateLimitConfiguration
 } from '@amazon-sp-api-release/amazon-sp-api-sdk-js';
+import { AppConfig } from './app.config.mjs';
 
 /**
 * Sample SDK usage of calling Sellers getMarketplaceParticipations API.
@@ -13,22 +15,22 @@ import {
 * Please provide client_id, client_secret and refresh_token when calling this function.
 */
 async function getMarketplaceParticipations() {
-try {
-    //Configure Sellers ApiClient
-    const sellersApiClient = new SellersSpApi.ApiClient(AppConfig.spApiNAEndpoint);
-    sellersApiClient.enableAutoRetrievalAccessToken(AppConfig.lwaClientId, AppConfig.lwaClientSecret, AppConfig.lwaRefreshToken, null);
-    const sellersApi = new SellersSpApi.SellersApi(sellersApiClient);
-    
-    //Call GetMarkerplaceParticipations API
-    const participations = await sellersApi.getMarketplaceParticipations();
-    console.log(
-      JSON.stringify(participations, null, ' ') + 
-        '\n**********************************'
-    )
+  try {
+      //Configure Sellers ApiClient
+      const sellersApiClient = new SellersSpApi.ApiClient(AppConfig.spApiNAEndpoint);
+      sellersApiClient.enableAutoRetrievalAccessToken(AppConfig.lwaClientId, AppConfig.lwaClientSecret, AppConfig.lwaRefreshToken, null);
+      const sellersApi = new SellersSpApi.SellersApi(sellersApiClient);
+      
+      //Call GetMarkerplaceParticipations API
+      const participations = await sellersApi.getMarketplaceParticipations();
+      console.log(
+        JSON.stringify(participations, null, ' ') + 
+          '\n**********************************'
+      )
 
-} catch (error) {
-    console.error('Exception when calling getMarketplaceParticipations API', error.message);
-}
+  } catch (error) {
+      console.error('Exception when calling getMarketplaceParticipations API', error.message);
+  }
 }
 
 /**
@@ -71,14 +73,14 @@ async function getOrders() {
   try {
       //Set up LwaAuthClient instance
       const lwaAuthClient = new LwaAuthClient(AppConfig.lwaClientId, AppConfig.lwaClientSecret, AppConfig.lwaRefreshToken, null);
-      
+
       //Configure Orders ApiClient
       const ordersApiClient = new OrdersSpApi.ApiClient(AppConfig.spApiNAEndpoint);
       ordersApiClient.applyXAmzAccessTokenToRequest(
         await lwaAuthClient.getAccessToken()
       );
       const ordersApi = new OrdersSpApi.OrdersV0Api(ordersApiClient);
-
+      
       //Call GetOrders API
       const marketPlaceIds = ['ATVPDKIKX0DER'];
       const opts = {
@@ -86,15 +88,63 @@ async function getOrders() {
       };
       const orders = await ordersApi.getOrders(marketPlaceIds, opts);
       console.log(
-        JSON.stringify(orders, null, ' ') +
+        JSON.stringify(orders, null, ' ') + 
           '\n**********************************'
       )
+
   } catch (error) {
-      console.error('Exception when calling getMarketplaceParticipations API', error.message);
+      console.error('Exception when calling getOrders API', error.message);
   }
+}
+
+/**
+ * We support a built in rate limiter.
+ * Here is a sample SDK usage of calling Orders listTransactions API with a rate limiter and retry logic.
+ */
+async function getOrdersWithRateLimiterAndRetry(rateLimitPermit, waitTimeOutInMilliSeconds, retryCount) {
+  const ordersApiClient = new OrdersSpApi.ApiClient(AppConfig.spApiNAEndpoint);
+  ordersApiClient.enableAutoRetrievalAccessToken(AppConfig.lwaClientId, AppConfig.lwaClientSecret, AppConfig.lwaRefreshToken);
+
+  const rateLimitConfig = new RateLimitConfiguration(rateLimitPermit, waitTimeOutInMilliSeconds);
+  ordersApiClient.setRateLimiter(rateLimitConfig);
+  const ordersApi = new OrdersSpApi.OrdersV0Api(ordersApiClient);
+  const marketPlaceIds = ['ATVPDKIKX0DER'];
+  const opts = {
+    createdAfter: '2024-01-01'
+  };
+
+  for (let attempt = 1; attempt <= retryCount; attempt++) {
+    try {
+      const response = await ordersApi.getOrders(marketPlaceIds, opts);
+      console.log(
+        JSON.stringify(response, null, ' ') + 
+          '\n**********************************'
+      )        
+      return response.body;
+    } catch (error) {
+      const isRateLimit = error.message.includes('Rate limit');
+      const isLastAttempt = attempt === retryCount;
+
+      if (isRateLimit) {
+          console.log(`Rate limit reached (Attempt ${attempt}/${retryCount})`);
+          
+          if (!isLastAttempt) {
+              // Wait 60 seconds before retry (SP-API getOrders requirement)
+              console.log('Waiting 5 seconds before retry...');
+              await new Promise(resolve => 
+                  setTimeout(resolve, 5000)
+              );
+              continue;
+          }
+      }
+
+      throw error;
+   } 
+}
 }
 
 // Uncomment to execute the functions
 // getMarketplaceParticipations();
 // createDestination();
-// getOrders()
+// getOrders();
+// getOrdersWithRateLimiterAndRetry(0.0167, 2000, 3);

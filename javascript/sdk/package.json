@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@babel/cli": "^7.0.0",
-    "superagent": "^9.0.0"
+    "superagent": "^9.0.0",
+    "bottleneck": "^2.19.5"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

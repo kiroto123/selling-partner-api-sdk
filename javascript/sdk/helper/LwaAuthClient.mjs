@@ -49,7 +49,9 @@ export class LwaAuthClient {
             if (cachedTokenItem) {
                 const cachedToken = cachedTokenItem.cachedToken;
                 const cachedTokenExpiration = cachedTokenItem.cachedTokenExpiration;
-                if (cachedTokenExpiration > Date.now()) {
+                //Adjustment in milliseconds (60s) to avoid using nearly expired tokens
+                const adjustedExpiryTime = cachedTokenExpiration - 60000;
+                if (adjustedExpiryTime > Date.now()) {
                     return Promise.resolve(cachedToken); 
                 } else {
                     this.#cachedTokenMap.delete(key);

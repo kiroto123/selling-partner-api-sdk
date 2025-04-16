@@ -49,3 +49,4 @@ export * as VendortransactionstatusSpApi from './src/vendortransactionstatus_v1/
 
 export * from './helper/LwaAuthClient.mjs';
 export * from './helper/ScopeConstants.mjs';
+export * from './helper/RateLimitConfiguration.mjs';
