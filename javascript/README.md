@@ -49,7 +49,7 @@ Add the following line to the `dependencies` in your `package.json` file:
 
 In order to call one of the APIs included in the Selling Partner API, you need to:
 1. Configure credentials (Note: Use your individual credentials for `clientId`, `clientSecret` and `refreshToken`)
-2. Enable Auto `accessToken` retrievel using our built in ApiClient function OR Retrieve `accessToken` using our `LwaAuthClient` helper (Be aware for some APIs, you will need extra step to get `RDT Token`)
+2. Enable auto `accessToken` retrievel using our built in ApiClient function OR retrieve `accessToken` using our `LwaAuthClient` helper (Be aware for some APIs, you will need extra step to get `RDT Token`)
 2. Create an instance for a specific API and API client, then apply `accessToken` to it.
 3. Call an API operation
 

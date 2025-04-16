@@ -101,11 +101,11 @@ async function getOrders() {
  * We support a built in rate limiter.
  * Here is a sample SDK usage of calling Orders listTransactions API with a rate limiter and retry logic.
  */
-async function getOrdersWithRateLimiterAndRetry(rateLimitPermit, waitTimeOutInMilliSeconds, retryCount) {
+async function getOrdersWithRateLimiterAndRetry(rateLimitPermit, waitTimeOutInMilliSeconds, burstRequests, retryCount) {
   const ordersApiClient = new OrdersSpApi.ApiClient(AppConfig.spApiNAEndpoint);
   ordersApiClient.enableAutoRetrievalAccessToken(AppConfig.lwaClientId, AppConfig.lwaClientSecret, AppConfig.lwaRefreshToken);
 
-  const rateLimitConfig = new RateLimitConfiguration(rateLimitPermit, waitTimeOutInMilliSeconds);
+  const rateLimitConfig = new RateLimitConfiguration(rateLimitPermit, waitTimeOutInMilliSeconds, burstRequests);
   ordersApiClient.setRateLimiter(rateLimitConfig);
   const ordersApi = new OrdersSpApi.OrdersV0Api(ordersApiClient);
   const marketPlaceIds = ['ATVPDKIKX0DER'];
@@ -147,4 +147,4 @@ async function getOrdersWithRateLimiterAndRetry(rateLimitPermit, waitTimeOutInMi
 // getMarketplaceParticipations();
 // createDestination();
 // getOrders();
-// getOrdersWithRateLimiterAndRetry(0.0167, 2000, 3);
+// getOrdersWithRateLimiterAndRetry(0.0167, 2000, 20, 3);

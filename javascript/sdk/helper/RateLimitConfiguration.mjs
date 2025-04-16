@@ -1,6 +1,6 @@
 export class RateLimitConfiguration {
     /**
-     * RateLimiter Permit
+     * RateLimiter Permit: requests per second
      * @type {number}
      * @private
      */
@@ -14,12 +14,21 @@ export class RateLimitConfiguration {
     #waitTimeOutInMilliSeconds;
 
     /**
+     * Burst value
+     * @type {number}
+     * @private
+     */
+    #burstRequests;
+
+    /**
      * @param {number} rateLimitPermit
      * @param {number} waitTimeOutInMilliSeconds
+     * @param {number} burstRequests
      */
-    constructor(rateLimitPermit, waitTimeOutInMilliSeconds) {
+    constructor(rateLimitPermit, waitTimeOutInMilliSeconds, burstRequests = null) {
         this.#rateLimitPermit = rateLimitPermit;
         this.#waitTimeOutInMilliSeconds = waitTimeOutInMilliSeconds;
+        this.#burstRequests = burstRequests;
     }
 
     /**
@@ -48,5 +57,19 @@ export class RateLimitConfiguration {
      */
     setRateLimitPermit(rateLimitPermit) {
         this.#rateLimitPermit = rateLimitPermit;
+    }
+
+    /**
+     * @returns {number}
+     */
+    getBurstRequests() {
+        return this.#burstRequests;
+    }
+
+    /**
+     * @param {number} burstRequests
+     */
+    setBurstRequests(burstRequests) {
+        this.#burstRequests = burstRequests;
     }
 }

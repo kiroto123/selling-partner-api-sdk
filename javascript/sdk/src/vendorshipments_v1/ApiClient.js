@@ -204,7 +204,7 @@ class SuperagentRateLimiter {
 
         this.#limiter = new Bottleneck({
             minTime: minTime,
-            maxConcurrent: 1,
+            maxConcurrent: config.getBurstRequests()? config.getBurstRequests() : 1,
             highWater: 0, // Don't queue requests
             strategy: Bottleneck.strategy.BLOCK // Block new requests when at capacity
         });
