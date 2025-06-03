@@ -36,7 +36,7 @@ class {{#operations}}Test{{classname}}(unittest.TestCase):
     def test_{{operationId}}(self):
         {{#allParams}}{{#required}}{{paramName}} = {{#isArray}}[self._get_random_value("{{{dataType}}}") for _ in range(1)]{{/isArray}}{{^isArray}}self._get_random_value("{{dataType}}", {{#pattern}}"{{{vendorExtensions.x-regex}}}".replace("*$", "{"+ "{{#minLength}}{{{minLength}}}{{/minLength}}{{^minLength}}0{{/minLength}}{{#maxLength}},{{{maxLength}}}{{/maxLength}}" + "}$"){{/pattern}}{{^pattern}}None{{/pattern}}){{/isArray}}
         {{/required}}{{/allParams}}
-        self.instruct_backend_mock("{{tags.0.name}}".casefold(), self.to_camel_case("{{operationId}}"), "{{responses.0.code}}")
+        self.instruct_backend_mock("{{tags.0.name}}".casefold().replace(' ', ''), self.to_camel_case("{{operationId}}"), "{{responses.0.code}}")
         response = self.api.{{operationId}}_with_http_info({{#allParams}}{{#required}}{{paramName}}, {{/required}}{{/allParams}})
         {{#returnType}}
         self.assertEqual({{responses.0.code}}, response[1])
