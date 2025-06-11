@@ -30,10 +30,9 @@ To run the SDK you need dotnet 7.0 or higher.
 Add the following lines to the dependencies in your `yourProject.csproj` file:
 
 ```xml
-  </ItemGroup>
    <ItemGroup>
     <Compile Include="Yourtest.cs" />
-    <PackageReference Include="software.amzn.spapi" Version="1.1.0" />
+    <PackageReference Include="software.amzn.spapi" Version="1.1.1" />
   </ItemGroup>
 ```
 
@@ -46,6 +45,23 @@ In order to call one of the APIs included in the Selling Partner API, you need t
 
 For an example, refer to the following sample code for connecting to Sellers API:
 ```csharp
+
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reflection;
+using RestSharp;
+using software.amzn.spapi;
+using software.amzn.spapi.Client;
+using software.amzn.spapi.Api;
+using software.amzn.spapi.Model;
+using Amazon.SellingPartnerAPIAA;
+using software.amzn.spapi.Api.sellers.v1;
+using software.amzn.spapi.Model.sellers.v1;
+using System.Threading;
+
 // Configure your LWA credentials
 LWAAuthorizationCredentials lwaAuthorizationCredentials = new LWAAuthorizationCredentials
 {
