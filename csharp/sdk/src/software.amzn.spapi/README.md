@@ -57,7 +57,7 @@ using software.amzn.spapi;
 using software.amzn.spapi.Client;
 using software.amzn.spapi.Api;
 using software.amzn.spapi.Model;
-using Amazon.SellingPartnerAPIAA;
+using software.amzn.spapi.Auth;
 using software.amzn.spapi.Api.sellers.v1;
 using software.amzn.spapi.Model.sellers.v1;
 using System.Threading;
