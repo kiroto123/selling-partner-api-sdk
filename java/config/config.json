@@ -1,6 +1,6 @@
 {
   "groupId": "sdk.sailink.amazon.spapi",
-  "invokerPackage": "sdk.saillink.amazon.spapi",
+  "invokerPackage": "software.amazon.spapi",
   "artifactId": "spapi-sdk",
   "library": "okhttp4-gson",
   "hideGenerationTimestamp": "true",
