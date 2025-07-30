@@ -19,10 +19,10 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import org.threeten.bp.OffsetDateTime;
 
 /** The job details of a service. */
 @Schema(description = "The job details of a service.")
@@ -246,7 +246,7 @@ public class ServiceJob {
 
     public ServiceJob addPreferredAppointmentTimesItem(AppointmentTime preferredAppointmentTimesItem) {
         if (this.preferredAppointmentTimes == null) {
-            this.preferredAppointmentTimes = new ArrayList<AppointmentTime>();
+            this.preferredAppointmentTimes = new ArrayList<>();
         }
         this.preferredAppointmentTimes.add(preferredAppointmentTimesItem);
         return this;
@@ -276,7 +276,7 @@ public class ServiceJob {
 
     public ServiceJob addAppointmentsItem(Appointment appointmentsItem) {
         if (this.appointments == null) {
-            this.appointments = new ArrayList<Appointment>();
+            this.appointments = new ArrayList<>();
         }
         this.appointments.add(appointmentsItem);
         return this;
@@ -379,7 +379,7 @@ public class ServiceJob {
 
     public ServiceJob addAssociatedItemsItem(AssociatedItem associatedItemsItem) {
         if (this.associatedItems == null) {
-            this.associatedItems = new ArrayList<AssociatedItem>();
+            this.associatedItems = new ArrayList<>();
         }
         this.associatedItems.add(associatedItemsItem);
         return this;
