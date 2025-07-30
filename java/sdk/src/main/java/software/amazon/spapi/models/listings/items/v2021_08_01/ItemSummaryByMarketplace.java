@@ -19,10 +19,10 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import org.threeten.bp.OffsetDateTime;
 
 /** Summary details of a listings item for an Amazon marketplace. */
 @Schema(description = "Summary details of a listings item for an Amazon marketplace.")
@@ -154,7 +154,7 @@ public class ItemSummaryByMarketplace {
     }
 
     @SerializedName("status")
-    private List<StatusEnum> status = new ArrayList<StatusEnum>();
+    private List<StatusEnum> status = new ArrayList<>();
 
     @SerializedName("fnSku")
     private String fnSku = null;

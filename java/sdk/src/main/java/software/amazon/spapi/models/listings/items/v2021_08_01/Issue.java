@@ -87,7 +87,7 @@ public class Issue {
     private List<String> attributeNames = null;
 
     @SerializedName("categories")
-    private List<String> categories = new ArrayList<String>();
+    private List<String> categories = new ArrayList<>();
 
     @SerializedName("enforcements")
     private IssueEnforcements enforcements = null;
@@ -156,7 +156,7 @@ public class Issue {
 
     public Issue addAttributeNamesItem(String attributeNamesItem) {
         if (this.attributeNames == null) {
-            this.attributeNames = new ArrayList<String>();
+            this.attributeNames = new ArrayList<>();
         }
         this.attributeNames.add(attributeNamesItem);
         return this;

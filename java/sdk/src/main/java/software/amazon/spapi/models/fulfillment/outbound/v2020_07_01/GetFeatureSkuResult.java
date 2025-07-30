@@ -100,7 +100,7 @@ public class GetFeatureSkuResult {
 
     public GetFeatureSkuResult addIneligibleReasonsItem(String ineligibleReasonsItem) {
         if (this.ineligibleReasons == null) {
-            this.ineligibleReasons = new ArrayList<String>();
+            this.ineligibleReasons = new ArrayList<>();
         }
         this.ineligibleReasons.add(ineligibleReasonsItem);
         return this;

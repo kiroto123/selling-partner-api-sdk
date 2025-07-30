@@ -146,7 +146,7 @@ public class ListOfferMetricsRequestFilters {
 
     public ListOfferMetricsRequestFilters addAsinsItem(String asinsItem) {
         if (this.asins == null) {
-            this.asins = new ArrayList<String>();
+            this.asins = new ArrayList<>();
         }
         this.asins.add(asinsItem);
         return this;

@@ -163,7 +163,7 @@ public class ListOffersResponseOffer {
 
     public ListOffersResponseOffer addVendorCodesItem(String vendorCodesItem) {
         if (this.vendorCodes == null) {
-            this.vendorCodes = new ArrayList<String>();
+            this.vendorCodes = new ArrayList<>();
         }
         this.vendorCodes.add(vendorCodesItem);
         return this;
