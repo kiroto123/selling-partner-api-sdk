@@ -54,7 +54,10 @@ public class ApiClient {
         httpClient = new OkHttpClient();
 
         // Enable gzip request compression
-        httpClient.interceptors().add(new GzipRequestInterceptor());
+        httpClient = httpClient
+                .newBuilder()
+                .addInterceptor(new GzipRequestInterceptor())
+                .build();
 
         json = new JSON();
 
